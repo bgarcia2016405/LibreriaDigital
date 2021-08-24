@@ -7,25 +7,25 @@ const userModel = require('./src/models/user.model');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:27017/HelpPets', {useNewUrlParser:true, useUnifiedTopology: true}).then(()=>{
+mongoose.connect('mongodb://localhost:27017/LibreriaDigital', {useNewUrlParser:true, useUnifiedTopology: true}).then(()=>{
 
-    var nickName = 'ADMIN';
-    var password = '123456';
-    var type = 'Administrador';
-    var User = new userModel();
+    var usuario = 'adminpractica';
+    var password = 'adminpractica';
+    var rol = 'admin';
+    var UserModel = new userModel();
 
-    User.nickName = nickName;
-    User.type = type;
+    UserModel.usuario = usuario;
+    UserModel.rol = rol;
 
-    userModel.find({ nickName : nickName }).exec((err,userFound)=>{
+    userModel.find({ usuario : usuario }).exec((err,userFound)=>{
         if(userFound && userFound.length >= 1) return console.log("User exist");
 
         bcrypt.hash(password, null, null, (err, encryptedPasswords)=>{
             if(err) return console.log("password request error");
 
-            User.password = encryptedPasswords;
+            UserModel.password = encryptedPasswords;
 
-            User.save((err,userSave)=>{
+            UserModel.save((err,userSave)=>{
                 if(err) return console.log("save user request error");
 
                 if(userSave){

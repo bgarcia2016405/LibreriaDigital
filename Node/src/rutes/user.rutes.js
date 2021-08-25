@@ -16,6 +16,6 @@ api.put('/actualizarUsuario/:idUser', authenticated.ensureAuth, userController.e
 
 api.get('/usuarioId/:idUser', authenticated.ensureAuth, userController.usuarioId);
 
-api.get('/mostrarTipoUsuario/:typo', authenticated.ensureAuth, userController.usuarioTipo)
+api.get('/mostrarTipoUsuario/:typo', authenticated.ensureAuth, userController.usuarioTipo);
 
 module.exports = api;

@@ -56,21 +56,60 @@ function buscarTitulo(req,res){
     var identidad = req.user.rol;
 
     
-    if(authorization != admin) return res.status(404).send({report:'No es administrador'});
+    if(identidad != admin) return res.status(404).send({report:'No es administrador'});
 
-    biblioModel.find({titulo:titulo}, (err,bibiFound)=>{
+    biblioModel.findOne({titulo:titulo}, (err,bibiFound)=>{
         if(err) return res.status(404).send({report:'Error buscando bibliografia'});
 
-        if(!bibiFound) return res.status(500).send({report:'No existe el libro'});
+        if(!bibiFound) return res.status(500).send({report:'No existe la bibliografía'});
 
         return res.status(200).send(bibiFound);
     })
 }
 
+function editarBiblio(req,res){
+    var titulo = req.params.titulo;
+    var identidad = req.user.rol;
+    var params = req.body;
 
+    params.palabrasClave = params.palabrasClave.split(';');
+    params.temas = params.temas.split(';');
+  
+    if(identidad != admin) return res.status(404).send({report:'No es administrador'});
+
+    biblioModel.findOneAndUpdate({titulo:titulo} ,params, {new:true} ,(err,bibiEdit)=>{
+        
+        if(err) return res.status(404).send({report:'Error editando bibliografia'});
+
+        if(!bibiEdit) return res.status(500).send({report:'Bibliografia no editada'});
+
+        return res.status(200).send(bibiEdit);
+    })
+
+}
+
+function eliminarBiblio(req,res){
+    var titulo = req.params.titulo;
+    var identidad = req.user.rol;
+
+    if(identidad != admin) return res.status(404).send({report:'No es administrador'});
+
+    biblioModel.findOneAndDelete({titulo: titulo}, (err,bibiDelete)=>{
+        
+        if(err) return res.status(404).send({report:'Error eliminando bibliografia'});
+
+        if(!bibiDelete) return res.status(500).send({report:'Bibliografia no eliminada'});
+
+        return res.status(200).send(bibiDelete);
+
+    })
+
+}
 
 
 module.exports = {
     crear,
-    buscarTitulo
+    buscarTitulo,
+    editarBiblio,
+    eliminarBiblio
 }

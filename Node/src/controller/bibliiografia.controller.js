@@ -106,10 +106,71 @@ function eliminarBiblio(req,res){
 
 }
 
+function buscarCopias(req,res){
+
+    var orden = req.params.orden;
+
+    if(orden == 'Mayor'){
+        biblioModel.find((err,bibiFound)=>{
+            if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+            if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
+
+            return res.status(200).send(bibiFound);
+        }).sort({copias:-1})
+    }
+
+    if(orden == 'Menor'){
+        biblioModel.find((err,bibiFound)=>{
+            if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+            if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
+
+            return res.status(200).send(bibiFound);
+        }).sort({copias:1})
+    }
+}
+
+function buscarDisponibles(req,res){
+
+    var orden = req.params.orden;
+
+    if(orden == 'Mayor'){
+        biblioModel.find((err,bibiFound)=>{
+            if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+            if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
+
+            return res.status(200).send(bibiFound);
+        }).sort({disponibles:-1})
+    }
+
+    if(orden == 'Menor'){
+        biblioModel.find((err,bibiFound)=>{
+            if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+            if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
+
+            return res.status(200).send(bibiFound);
+        }).sort({disponibles:1})
+    }
+}
+
+function buscarPalabra(req,res){
+
+    var palabra = req.params.palabra;
+
+    biblioModel.find({palabrasClave:palabra},(err,bibiFound)=>{
+        return res.status(200).send(bibiFound);
+    })
+}
 
 module.exports = {
     crear,
     buscarTitulo,
     editarBiblio,
-    eliminarBiblio
+    eliminarBiblio,
+    buscarCopias,
+    buscarDisponibles,
+    buscarPalabra
 }

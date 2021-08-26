@@ -14,4 +14,10 @@ api.put('/editarBibliografia/:titulo', authenticated.ensureAuth, biblioControlle
 
 api.delete('/eliminarBibliografia/:titulo', authenticated.ensureAuth, biblioController.eliminarBiblio);
 
+api.get('/buscarCopias/:orden', biblioController.buscarCopias);
+
+api.get('/buscarDisponibles/:orden', biblioController.buscarDisponibles);
+
+api.get('/buscarPlabra/:palabra', biblioController.buscarPalabra);
+
 module.exports = api

@@ -8,6 +8,7 @@ const cors = require("cors")
 
 
 const user_rutes = require("./src/rutes/user.rutes");
+const presta_rutes = require("./src/rutes/prestamos.rutes");
 const biblio_rutes = require("./src/rutes/bibliografias.rutes");
 
 
@@ -21,6 +22,7 @@ app.use(cors());
 // CARGA DE RUTAS
 app.use('/api',
     user_rutes,
-    biblio_rutes)
+    biblio_rutes,
+    presta_rutes)
 
 module.exports = app;

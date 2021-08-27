@@ -14,7 +14,9 @@ var BiblioSchema = Schema({
     copias: Number,
     disponibles: Number,
     ejemplares: Number,
-    frecuenciaActual: String
+    frecuenciaActual: String,
+    prestados: Number,
+    buscados: Number
 })
 
 module.exports = mongoose.model('Bibliografia', BiblioSchema);

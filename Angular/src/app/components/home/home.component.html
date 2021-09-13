@@ -1,1 +1,71 @@
-<p>home works!</p>
+
+<div class="center" >
+<br><br>
+  <h1>
+    Libreria Cosmos
+  </h1>
+</div>
+
+
+<div class="center">
+  
+  <button type="button" class="btn btn-warning" style="width: 500px;" (click)="about()">About</button>
+
+  <button type="button" class="btn btn-info" style="width: 500px;" (click)="login()">Login</button>
+
+
+</div>
+
+
+<div *ngIf="state=='none'" class="center" >
+
+  <img src="assets/img/Space.png" alt="">
+
+</div>
+
+
+
+<div *ngIf="state == 'login'" class="col-lg-3 col-md-6 ml-auto mr-auto center" style="margin-top: 100px;" >
+  <div class="card card-coin card-plain">
+    
+    <div class="card-body">
+
+      <h1><i class="bi bi-person"></i> <br> Sign in</h1>
+     
+      <form>
+        <div class="form-group">
+          <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Usuario o CUI" name="usuario" #usuario="ngModel" [(ngModel)]="user.usuario">
+          <small id="emailHelp" class="form-text text-muted">No compartas tu usuario y contraseña con alguien mas.</small>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="iniciar()">Inicio</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="state == 'about'" class="col-lg-4 col-md-6 ml-auto mr-auto center" style="margin-top: 100px;" >
+  <div class="card card-coin card-plain">
+    <div class="card-header">
+      <img
+        class="img-center img-fluid rounded-circle"
+        src="assets/img/Byron.jfif"
+      />
+
+      <h4 class="title">Developer</h4>
+    </div>
+    <div class="card-body">
+     
+      
+    <p class="h4">Byron Haldaír García Guzmán</p>
+
+    <p class="h4">2016-405</p>
+
+    <p class="h4">Practica Supervisada</p>
+
+    </div>
+  </div>
+</div>

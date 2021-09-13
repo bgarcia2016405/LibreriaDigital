@@ -25,11 +25,13 @@ import { RegisterpageComponent } from "./pages/examples/registerpage/registerpag
 import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.component";
 import { HomeComponent } from './components/home/home.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RegistroComponent
+    RegistroComponent,
+    NavbarComponent
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

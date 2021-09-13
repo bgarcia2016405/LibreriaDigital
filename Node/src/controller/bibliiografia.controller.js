@@ -58,12 +58,21 @@ function buscarTitulo(req,res){
     
     if(identidad != admin) return res.status(404).send({report:'No es administrador'});
 
-    biblioModel.findOne({titulo:titulo}, (err,bibiFound)=>{
+    biblioModel.findOneAndUpdate({titulo:titulo}, {} ,(err,bibiFound)=>{
         if(err) return res.status(404).send({report:'Error buscando bibliografia'});
 
         if(!bibiFound) return res.status(500).send({report:'No existe la bibliografía'});
 
-        return res.status(200).send(bibiFound);
+            biblioModel.findByIdAndUpdate(bibiFound._id, {buscados:(bibiFound.buscados + 1)},(err,bibiEdit)=>{
+
+                if(err) return res.status(404).send({report:'Error la busqueda'});
+
+                if(!bibiEdit) return res.status(500).send({report:'Bibliografía no editada'});
+
+                return res.status(200).send(bibiFound);
+            })
+
+        
     })
 }
 
@@ -161,6 +170,11 @@ function buscarPalabra(req,res){
     var palabra = req.params.palabra;
 
     biblioModel.find({palabrasClave:palabra},(err,bibiFound)=>{
+
+        if(err) return res.status(404).send({report:'Error buscando bibliografías'});
+
+        if(!bibiFound) return res.status(500).send({report:'Bibliografías no existentes'})
+
         return res.status(200).send(bibiFound);
     })
 }

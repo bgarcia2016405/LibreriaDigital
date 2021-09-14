@@ -26,12 +26,14 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 import { HomeComponent } from './components/home/home.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { LibreroComponent } from './components/librero/librero.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RegistroComponent,
-    NavbarComponent
+    NavbarComponent,
+    LibreroComponent
     // IndexComponent,
     // ProfilepageComponent,
     // RegisterpageComponent,

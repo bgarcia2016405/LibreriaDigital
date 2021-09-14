@@ -10,6 +10,7 @@ import { LandingpageComponent } from "./pages/examples/landingpage/landingpage.c
 
 import { HomeComponent } from "./components/home/home.component";
 import { RegistroComponent } from "./components/registro/registro.component";
+import { LibreroComponent } from "./components/librero/librero.component";
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: "profile", component: ProfilepageComponent },
   { path: "register", component: RegisterpageComponent },
   { path: "landing", component: LandingpageComponent },
-
+  { path: "librero", component: LibreroComponent},
 
   { path: "", redirectTo: "home", pathMatch: "full" },
 ];

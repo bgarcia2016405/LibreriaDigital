@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from "sweetalert2";
 
 
 @Component({
@@ -15,7 +17,8 @@ export class HomeComponent implements OnInit {
   public user : User
 
   constructor(
-    public userService:UsuarioService
+    public userService:UsuarioService,
+    private router:Router
   ) {
     this.identidad = this.userService.getIdentidad();
     this.user = new User("","","","","","","","");
@@ -42,6 +45,17 @@ export class HomeComponent implements OnInit {
         this.getToken();
         this.token=response.token;
         localStorage.setItem('token', JSON.stringify(this.token));
+        this.router.navigate(['/librera'])
+      },
+      error=>{
+        console.log(<any>error);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Email o contraseña incorrecto',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     )
   }

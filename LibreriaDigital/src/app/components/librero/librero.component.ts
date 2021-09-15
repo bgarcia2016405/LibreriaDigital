@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Bibliografia } from '../../models/bibliogafria.model'
+import { BibliografiaService } from 'src/app/services/bibliografia.service'
+import { User } from 'src/app/models/user.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-librero',
@@ -7,13 +12,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LibreroComponent implements OnInit {
   public libros;
+  public identidad;
+  public user : User;
+  public biblio : Bibliografia;
 
-  constructor() { }
+  constructor(
+    public bibliografiaService:BibliografiaService,
+    public userService:UsuarioService
+  ) {
+    this.identidad = this.userService.getIdentidad();
+    this.user = new User("","","","","","","","");
+    this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
+  }
 
   ngOnInit(): void {
-    this.libros = [10,50,50,50,50,50,50,50,5050,5]
-    console.log(this.libros)
+    this.populares();
+  }
 
+  populares(){
+    this.bibliografiaService.buscarPopular().subscribe(
+      response=>{
+        this.libros = response
+      }
+    )
+  }
+
+  buscarTitulo(titulo){
+    this.bibliografiaService.buscarTitulo(titulo).subscribe(
+      response=>{
+        this.biblio = response
+      }
+    )
   }
 
 }

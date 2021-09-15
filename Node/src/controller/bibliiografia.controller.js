@@ -53,10 +53,6 @@ function crear(req,res){
 
 function buscarTitulo(req,res){
     var titulo = req.params.titulo;
-    var identidad = req.user.rol;
-
-    
-    if(identidad != admin) return res.status(404).send({report:'No es administrador'});
 
     biblioModel.findOneAndUpdate({titulo:titulo}, {} ,(err,bibiFound)=>{
         if(err) return res.status(404).send({report:'Error buscando bibliografia'});
@@ -179,6 +175,17 @@ function buscarPalabra(req,res){
     })
 }
 
+function buscarPopular(req,res){
+
+    biblioModel.find({},(err,biblioFound)=>{
+        if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+        if(!biblioFound) return res.status(500).send({report:'Bibliografías no existentes'})
+
+        return res.status(200).send(biblioFound);
+    }).sort({prestados:-1}).limit(10)
+}
+
 module.exports = {
     crear,
     buscarTitulo,
@@ -186,5 +193,6 @@ module.exports = {
     eliminarBiblio,
     buscarCopias,
     buscarDisponibles,
-    buscarPalabra
+    buscarPalabra,
+    buscarPopular
 }

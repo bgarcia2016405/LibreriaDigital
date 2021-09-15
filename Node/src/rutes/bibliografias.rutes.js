@@ -20,4 +20,6 @@ api.get('/buscarDisponibles/:orden', biblioController.buscarDisponibles);
 
 api.get('/buscarPlabra/:palabra', biblioController.buscarPalabra);
 
+api.get('/buscarPopular', biblioController.buscarPopular)
+
 module.exports = api

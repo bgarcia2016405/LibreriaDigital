@@ -25,39 +25,34 @@
 
 
 
-  <div *ngIf="state == 'login'" class="col-lg-3 col-md-6 ml-auto mr-auto center" style="margin-top: 100px;" >
-    <div class="card card-coin card-plain">
+  <div *ngIf="state == 'login'"  style="margin-top: 100px; " class="container center counter" >
+    <form>
+        <div class="form-floating mb-3 ">
+          <input type="text" class="form-control" id="usuario" placeholder="Usuario o CUI" name="usuario" #usuario="ngModel" [(ngModel)]="user.usuario">
+          <label for="floatingInput">Usuario o CUI</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password">
+          <label for="floatingPassword">Contraseña</label>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg" (click)="iniciar()">Inicio</button>
 
-      <div class="card-body">
-
-        <h1><i class="bi bi-person"></i> <br> Sign in</h1>
-
-        <form>
-          <div class="form-group">
-            <input type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Usuario o CUI" name="usuario" #usuario="ngModel" [(ngModel)]="user.usuario">
-            <small id="emailHelp" class="form-text text-muted">No compartas tu usuario y contraseña con alguien mas.</small>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password">
-          </div>
-          <button type="submit" class="btn btn-primary" (click)="iniciar()">Inicio</button>
-        </form>
-      </div>
-    </div>
+    </form>
   </div>
 
 
-  <div *ngIf="state == 'about'" class="col-lg-4 col-md-6 ml-auto mr-auto center" style="margin-top: 100px;" >
-    <div class="card card-coin card-plain">
-      <div class="card-header">
+  <div *ngIf="state == 'about'" class="col-lg-4  center" style="margin-top: 100px;" >
+    <div class="car">
+      <div class=" carTop">
         <img
-          class="img-center img-fluid rounded-circle"
+          class=" imgProfile"
           src="assets/img/Byron.jfif"
         />
 
-        <h4 class="title">Developer</h4>
-      </div>
-      <div class="card-body">
+        <h3 class="title">Developer</h3>
+      </div><br><br>
+      <div class="carsBody">
 
 
       <p class="h4">Byron Haldaír García Guzmán</p>
@@ -71,26 +66,3 @@
   </div>
 
 
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>

@@ -87,7 +87,33 @@ function devolver(req,res){
     })
 }
 
+function historial(req,res){
+    var usuario = req.user.sub;
+
+    prestaModel.find({user:usuario,estado:"devuelto"},(err,history)=>{
+        if(err) return res.status(404).send({report:'Error buscando historial'})
+
+        if(history == "") return res.status(500).send({report:'historial no encontrado'})
+
+        return res.status(200).send(history);
+    })
+}
+
+function posesion(req,res){
+    var usuario = req.user.sub;
+
+    prestaModel.find({user:usuario, estado:"prestado"}, (err,poseido)=>{
+        if(err) return res.status(404).send({report:'Error buscando historial'})
+
+        if(poseido == "") return res.status(500).send({report:'Sin bibliografía en posesión'})
+
+        return res.status(200).send(poseido);
+    })
+}
+
 module.exports = {
     prestamo,
-    devolver
+    devolver,
+    historial,
+    posesion
 }

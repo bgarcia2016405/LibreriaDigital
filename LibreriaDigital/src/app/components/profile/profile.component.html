@@ -1,0 +1,39 @@
+<button class="btn btn-primary bProfile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+(click)="getIdentidad()">
+  <i  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="bi bi-list"
+  (click)="getIdentidad()"></i>
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h2 id="offcanvasRightLabel">Perfil</h2>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <h3 *ngIf="identidad != null">
+      {{identidad.usuario}}
+    </h3>
+    <h4 *ngIf="identidad != null" class="textt">
+      {{identidad.nombres}}  {{identidad.apellidos}} | {{identidad.rol}}
+    </h4>
+    <h4 *ngIf="identidad != null" class="textt">
+       {{identidad.eMail}}
+    </h4>
+
+    <div class="infor">
+      <br>
+      <button type="button" class="btn btn-outline-secondary bOption"><i class="bi bi-book-fill"></i></button>
+      <button type="button" class="btn btn-outline-secondary bOption" style="margin-left: 2rem;"><i class="bi bi-clock-history"></i></button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+    </div>
+  </div>
+</div>

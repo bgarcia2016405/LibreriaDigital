@@ -22,17 +22,30 @@
 
     <div class="infor">
       <br>
-      <button type="button" class="btn btn-outline-secondary bOption"><i class="bi bi-book-fill"></i></button>
-      <button type="button" class="btn btn-outline-secondary bOption" style="margin-left: 2rem;"><i class="bi bi-clock-history"></i></button>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
+      <button type="button" class="btn btn-outline-secondary bOption" (click)="posesion()"><i class="bi bi-book-fill" (click)="posesion()"></i></button>
+      <button type="button" class="btn btn-outline-secondary bOption" style="margin-left: 2rem;" (click)="historial()"><i class="bi bi-clock-history" (click)="historial()"></i></button>
+      <br><br>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Bibliografia</th>
+            <th scope="col">Estado</th>
+            <th scope="col" *ngIf="state == 'posesion'">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bibi of tabla, let i = index">
+            <th scope="row">{{i}}</th>
+            <td>{{bibi.bibliografia.titulo}}</td>
+            <td>{{bibi.estado}}</td>
+            <td *ngIf="state == 'posesion'">
+              <button type="button" class="btn btn-outline-success" (click)="verificacion(bibi._id)">Success</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
     </div>
   </div>

@@ -8,7 +8,7 @@ var api = express.Router();
 
 api.get('/prestar/:libro', authenticated.ensureAuth, prestaController.prestamo);
 
-api.put('/devolver/:prestamo', authenticated.ensureAuth, prestaController.devolver);
+api.get('/devolver/:prestamo', authenticated.ensureAuth, prestaController.devolver);
 
 api.get('/historial', authenticated.ensureAuth, prestaController.historial)
 

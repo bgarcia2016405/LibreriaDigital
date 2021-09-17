@@ -1,4 +1,4 @@
-export class Bibliografia{
+export class Prestamos{
   constructor(
     public _id: String,
     public bibliografia:String,

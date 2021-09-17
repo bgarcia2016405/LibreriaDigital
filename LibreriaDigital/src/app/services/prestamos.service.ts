@@ -30,7 +30,7 @@ export class PrestamosService {
 
     let headersToken = this.headers.set('Authorization', this.getToken());
 
-    return this.http.put(this.url + '/devolcer/' + prestamo, {headers: headersToken} );
+    return this.http.get(this.url + '/devolver/' + prestamo, {headers: headersToken} );
 
   }
 
@@ -38,7 +38,7 @@ export class PrestamosService {
 
     let headersToken = this.headers.set('Authorization', this.getToken());
 
-    return this.http.get(this.http + '/historial', {headers:headersToken});
+    return this.http.get(this.url + '/historial', {headers:headersToken});
 
   }
 
@@ -46,7 +46,7 @@ export class PrestamosService {
 
     let headersToken = this.headers.set('Authorization', this.getToken());
 
-    return this.http.get(this.http + '/posesion', {headers:headersToken});
+    return this.http.get(this.url + '/posesion', {headers:headersToken});
 
   }
 

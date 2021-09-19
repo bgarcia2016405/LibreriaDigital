@@ -53,11 +53,12 @@ function crear(req,res){
 
 function buscarTitulo(req,res){
     var titulo = req.params.titulo;
+    var tipo = req.params.tipo;
 
-    biblioModel.findOneAndUpdate({titulo:titulo}, {} ,(err,bibiFound)=>{
+    biblioModel.findOne({titulo:titulo, type:tipo},(err,bibiFound)=>{
         if(err) return res.status(404).send({report:'Error buscando bibliografia'});
 
-        if(!bibiFound) return res.status(500).send({report:'No existe la bibliografía'});
+        if(!bibiFound) return res.status(404).send({report:'No existe la bibliografía'});
 
             biblioModel.findByIdAndUpdate(bibiFound._id, {buscados:(bibiFound.buscados + 1)},(err,bibiEdit)=>{
 
@@ -65,7 +66,7 @@ function buscarTitulo(req,res){
 
                 if(!bibiEdit) return res.status(500).send({report:'Bibliografía no editada'});
 
-                return res.status(200).send(bibiFound);
+                return res.status(200).send([bibiFound]);
             })
 
         
@@ -169,15 +170,17 @@ function buscarPalabra(req,res){
 
         if(err) return res.status(404).send({report:'Error buscando bibliografías'});
 
-        if(!bibiFound) return res.status(500).send({report:'Bibliografías no existentes'})
+        if(bibiFound == "") return res.status(404).send({report:'No existe la bibliografía'});
 
-        return res.status(200).send(bibiFound);
+        return res.status(200).send([bibiFound]);
     })
 }
 
 function buscarPopular(req,res){
 
-    biblioModel.find({},(err,biblioFound)=>{
+    var typo = req.params.tipo
+
+    biblioModel.find({type:typo},(err,biblioFound)=>{
         if(err) return res.status(404).send({report:'Error buscando bibliografía'});
 
         if(!biblioFound) return res.status(500).send({report:'Bibliografías no existentes'})

@@ -23,10 +23,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.tabla = null
 
   }
 
   getIdentidad(){
+
     this.identidad = this.userService.getIdentidad();
   }
 
@@ -46,6 +48,8 @@ export class ProfileComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+    this.tabla = null
+
       }
     )
   }
@@ -66,6 +70,9 @@ export class ProfileComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
+
+    this.tabla = null
+
       }
     )
   }

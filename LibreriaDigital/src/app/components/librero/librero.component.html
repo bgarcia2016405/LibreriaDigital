@@ -1,9 +1,43 @@
-<div>
+
 
   <h1>Librero Principal</h1>
 
 
-  <div *ngFor="let libro of libros;let i = index" class="libro" >
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="margin-left: 2rem;">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+    <label class="btn btn-outline-secondary" for="btnradio1" (click)="booc()">Libros</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="btnradio2" (click)="revis()">Revistas</label>
+  </div>
+
+<nav class="navbar navbar-light">
+  <div class="container-fluid">
+    <div class="form-floating mb-3 col-3">
+      <input type="text" class="form-control" id="titulo" placeholder="name@example.com"  name="titulo" #titulo="ngModel" [(ngModel)]="busqueda.titulo">
+      <label for="floatingInput"><i class="bi bi-search"></i> </label>
+    </div>
+    <div class="form-check  ">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked (click)="ttt()">
+      <label class="form-check-label" for="flexRadioDefault1">
+        Titulo
+      </label>
+    </div>
+    <div class="form-check  ">
+      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  (click)="palabraClave()">
+      <label class="form-check-label" for="flexRadioDefault2">
+        Palabra Clave
+      </label>
+    </div>
+    <button type="button" class="btn btn-outline-info  col-2 radio" (click)="Busqueda()">Buscar</button>
+
+  </div>
+</nav>
+
+
+
+  <div *ngIf="state == 'book'">
+  <div   *ngFor="let libro of libros;let i = index" class="libro">
 
       <div *ngIf="i <= 10"  class="tituloLibro" >
 
@@ -11,9 +45,56 @@
         data-bs-toggle="modal" data-bs-target="#exampleModal"> {{libro.titulo}} </button>
       </div>
 
+      <div class="ico">
+        <h3><i class="bi bi-pen-fill "></i></h3><br>
+        <h3><i class="bi bi-trash-fill "></i></h3>
+
+      </div>
+
+
   </div>
 
-</div>
+  </div>
+
+
+
+  <div *ngIf="state == 'srch'">
+    <table class="table tt">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

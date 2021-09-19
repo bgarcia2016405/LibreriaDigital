@@ -20,15 +20,51 @@ export class BibliografiaService {
     this.url = GLOBAL.url;
    }
 
-   buscarPopular():Observable<any>{
-    return this.http.get(this.url + '/buscarPopular', {headers: this.headers})
+   crearBibliografia(bibliografia):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+    let params = JSON.stringify(bibliografia);
+
+    return this.http.post(this.url + '/crearBibliografia', params, {headers: headersToken})
    }
 
-   buscarTitulo(titulo):Observable<any>{
+   editar(titulo,libro:Bibliografia):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+    let params = JSON.stringify(libro);
+
+    return this.http.put(this.url + '/editarBibliografia/' + titulo , params, {headers: headersToken} )
+   }
+
+  eliminar(titulo):Observable<any>{
     let headersToken = this.headers.set('Authorization', this.getToken())
 
-    return this.http.get(this.url + '/buscarTituloBiblio/' + titulo, {headers:headersToken})
+    return this.http.delete(this.url + '/eliminarBibliografia/' + titulo, {headers:headersToken})
+  }
+
+   buscarPopular(tipo):Observable<any>{
+    return this.http.get(this.url + '/buscarPopular/' + tipo, {headers: this.headers})
    }
+
+   buscarTitulo(titulo,tipo):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+
+    return this.http.get(this.url + '/buscarTituloBiblio/' + titulo + '/' + tipo, {headers:headersToken})
+   }
+
+   buscarCopias(orden):Observable<any>{
+
+    return this.http.get(this.url + '/buscarCopias/' + orden, {headers:this.headers})
+   }
+
+   buscarDisponibles(orden):Observable<any>{
+
+    return this.http.get(this.url + '/buscarDisponibles/' + orden, {headers:this.headers})
+   }
+
+   buscarPlabra(palabra,tipo):Observable<any>{
+
+    return this.http.get(this.url + '/buscarPlabra/' + palabra + '/' + tipo , {headers:this.headers})
+   }
+
 
 
    getIdentidad(){

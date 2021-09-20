@@ -3,6 +3,7 @@ import { Bibliografia } from '../../models/bibliogafria.model'
 import { BibliografiaService } from 'src/app/services/bibliografia.service'
 import { User } from 'src/app/models/user.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { PrestamosService } from 'src/app/services/prestamos.service';
 import Swal from "sweetalert2";
 
 @Component({
@@ -19,10 +20,12 @@ export class LibreroComponent implements OnInit {
   public tipo
   public busqueda : Bibliografia;
   public bibliografia
+  public
 
   constructor(
     public bibliografiaService:BibliografiaService,
-    public userService:UsuarioService
+    public userService:UsuarioService,
+    public prestaService: PrestamosService
   ) {
     this.identidad = this.userService.getIdentidad();
     this.user = new User("","","","","","","","");
@@ -35,6 +38,16 @@ export class LibreroComponent implements OnInit {
     this.tipo = "Libro"
     this.bibliografia = "titulo"
     this.populares();
+    console.log(this.identidad)
+  }
+
+  buscarId(id){
+    this.bibliografiaService.buscar(id).subscribe(
+      response=>{
+        this.busqueda = response
+        console.log(this.busqueda)
+      }
+    )
   }
 
   populares(){
@@ -48,12 +61,15 @@ export class LibreroComponent implements OnInit {
   revis(){
     this.tipo = "Revista";
     this.populares();
+    this.state = "book"
   }
 
   booc(){
     this.tipo = "Libro";
     this.populares();
+    this.state = "book"
   }
+
 
   Busqueda(){
     if(this.bibliografia == "titulo"){
@@ -62,6 +78,7 @@ export class LibreroComponent implements OnInit {
     if(this.bibliografia == "palabra-clave"){
       this.buscarPalabra()
     }
+    this.state = "srch"
   }
 
   buscarTitulo(){
@@ -87,6 +104,7 @@ export class LibreroComponent implements OnInit {
     this.bibliografiaService.buscarPlabra(this.busqueda.titulo,this.tipo).subscribe(
       response=>{
         console.log(response)
+        this.libros = response
       }, error=>{
         console.log(<any>error);
         Swal.fire({
@@ -103,12 +121,53 @@ export class LibreroComponent implements OnInit {
   palabraClave(){
     console.log("palabra-clave")
     this.bibliografia = "palabra-clave"
+    this.state = "book"
   }
 
   ttt(){
     console.log("titulo")
     this.bibliografia = "titulo"
+    this.state = "book"
+  }
 
+  prestar(){
+    this.prestaService.prestar(this.busqueda._id).subscribe(
+      respnse=>{
+        console.log(respnse)
+        this.populares();
+      },
+      errror=>{
+        console.log(<any>errror);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Bibliografía en posesión',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    )
+  }
+
+  verificacion(){
+    Swal.fire({
+      title: '¿Seguro que quieres prestar la bibliografía?',
+      text: "No queremos accidentes",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'En posesión',
+          'La bibliografía ahora esta con tigo',
+          'success'
+        )
+        this.prestar();
+      }
+    })
   }
 
 }

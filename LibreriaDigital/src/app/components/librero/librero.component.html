@@ -29,6 +29,7 @@
         Palabra Clave
       </label>
     </div>
+
     <button type="button" class="btn btn-outline-info  col-2 radio" (click)="Busqueda()">Buscar</button>
 
   </div>
@@ -36,7 +37,7 @@
 
 
 
-  <div *ngIf="state == 'book'">
+  <div *ngIf="state == 'srch'">
   <div   *ngFor="let libro of libros;let i = index" class="libro">
 
       <div *ngIf="i <= 10"  class="tituloLibro" >
@@ -46,8 +47,8 @@
       </div>
 
       <div class="ico">
-        <h3><i class="bi bi-pen-fill "></i></h3><br>
-        <h3><i class="bi bi-trash-fill "></i></h3>
+        <h3><i class="bi bi-pen-fill " *ngIf="identidad.rol != 'estudante'"></i></h3><br>
+        <h3><i class="bi bi-trash-fill" *ngIf="identidad.rol != 'estudante'"></i></h3>
 
       </div>
 
@@ -58,33 +59,30 @@
 
 
 
-  <div *ngIf="state == 'srch'">
-    <table class="table tt">
+  <div *ngIf="state == 'book'">
+    <table class="table table-success table-striped tt">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Edición</th>
+        <th scope="col">Disponibles</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
+      <tr *ngFor="let book of libros, let i = index">
+        <th scope="row">{{i}}</th>
+        <td>{{book.titulo}}</td>
+        <td>{{book.autor}}</td>
+        <td>{{book.edicion}}</td>
+        <td>{{book.disponibles}}</td>
+        <td>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="buscarId(book._id)"><i class="bi bi-eye" (click)="buscarId(book._id)"></i></button>
+          <button type="button" class="btn btn-warning" *ngIf="identidad.rol != 'estudante'"><i class="bi bi-pen"></i></button>
+          <button type="button" class="btn btn-danger"  *ngIf="identidad.rol != 'estudante'"><i class="bi bi-trash"></i></button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -98,19 +96,52 @@
 
 <!-- Modal -->
 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content" style="width: 70rem;">
+      <div class="container" >
+        <div class="row">
+          <div class="col">
+            <div class="book" >
+              <div class="back"></div>
+              <div class="page6">
+                <h2>Temas</h2>
+                <p>{{busqueda.temas}}</p>
+                <h2>Palabras Clave</h2>
+                <p>{{busqueda.palabrasClave}}</p>
+              </div>
+              <div class="page5">
+
+              </div>
+              <div class="page4">
+
+              </div>
+              <div class="page3"></div>
+              <div class="page2"></div>
+              <div class="page1"></div>
+              <div class="front">
+                <h1>{{busqueda.titulo}}</h1>
+                <h3>{{busqueda.autor}}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col" style="text-align: right;">
+
+             <p> {{busqueda.descripccion}} </p>
+
+
+             <h5>Disponibles: {{busqueda.disponibles}} </h5>
+
+
+
+             <button type="button" class="btn btn-outline-primary" style="margin-bottom: auto; margin-top: auto" (click)="verificacion()">Prestar</button>
+          </div>
+
+        </div>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
+
+
+
     </div>
   </div>
 </div>

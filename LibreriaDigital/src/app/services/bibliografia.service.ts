@@ -27,6 +27,10 @@ export class BibliografiaService {
     return this.http.post(this.url + '/crearBibliografia', params, {headers: headersToken})
    }
 
+   buscar(id):Observable<any>{
+     return this.http.get(this.url + '/buscarId/' + id, {headers:this.headers})
+   }
+
    editar(titulo,libro:Bibliografia):Observable<any>{
     let headersToken = this.headers.set('Authorization', this.getToken())
     let params = JSON.stringify(libro);

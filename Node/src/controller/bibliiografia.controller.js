@@ -51,6 +51,18 @@ function crear(req,res){
  
 }
 
+function buscarID(req,res){
+    var id = req.params.sd;
+
+    biblioModel.findById(id, (err,bibiFound)=>{
+        if(err) return res.status(404).send({report:'Error buscando bibliografia'});
+
+        if(!bibiFound) return res.status(404).send({report:'No existe la bibliografía'});
+
+        return res.status(200).send(bibiFound); 
+    })
+}
+
 function buscarTitulo(req,res){
     var titulo = req.params.titulo;
     var tipo = req.params.tipo;
@@ -186,11 +198,12 @@ function buscarPopular(req,res){
         if(!biblioFound) return res.status(500).send({report:'Bibliografías no existentes'})
 
         return res.status(200).send(biblioFound);
-    }).sort({prestados:-1}).limit(10)
+    })
 }
 
 module.exports = {
     crear,
+    buscarID,
     buscarTitulo,
     editarBiblio,
     eliminarBiblio,

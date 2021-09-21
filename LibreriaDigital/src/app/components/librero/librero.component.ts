@@ -78,7 +78,6 @@ export class LibreroComponent implements OnInit {
     if(this.bibliografia == "palabra-clave"){
       this.buscarPalabra()
     }
-    this.state = "srch"
   }
 
   buscarTitulo(){
@@ -86,6 +85,7 @@ export class LibreroComponent implements OnInit {
       response=>{
         console.log(response)
         this.libros = response
+        this.state = "srch"
       },error=>{
         console.log(<any>error);
         Swal.fire({
@@ -103,8 +103,10 @@ export class LibreroComponent implements OnInit {
   buscarPalabra(){
     this.bibliografiaService.buscarPlabra(this.busqueda.titulo,this.tipo).subscribe(
       response=>{
-        console.log(response)
+
         this.libros = response
+        console.log(this.libros)
+        this.state = "srch"
       }, error=>{
         console.log(<any>error);
         Swal.fire({

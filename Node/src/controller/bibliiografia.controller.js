@@ -177,12 +177,15 @@ function buscarDisponibles(req,res){
 function buscarPalabra(req,res){
 
     var palabra = req.params.palabra;
+    var tipo = req.params.tipo;
 
-    biblioModel.find({palabrasClave:palabra},(err,bibiFound)=>{
+    console.log(tipo)
+
+    biblioModel.findOne({palabrasClave: palabra, type:tipo},(err,bibiFound)=>{
 
         if(err) return res.status(404).send({report:'Error buscando bibliografías'});
 
-        if(bibiFound == "") return res.status(404).send({report:'No existe la bibliografía'});
+        if(bibiFound == "") return res.status(404).send(palabra);
 
         return res.status(200).send([bibiFound]);
     })

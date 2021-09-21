@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Prestamos } from 'src/app/models/prestamos.model';
 import { PrestamosService } from 'src/app/services/prestamos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -16,7 +17,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     public userService : UsuarioService,
-    public prestaService: PrestamosService
+    public prestaService: PrestamosService,
+    private router:Router
   ) {
     this.identidad = userService.getIdentidad();
     this.tabla = new Prestamos("","","","");
@@ -30,6 +32,8 @@ export class ProfileComponent implements OnInit {
   getIdentidad(){
 
     this.identidad = this.userService.getIdentidad();
+    this.tabla = null
+    this.router.navigate(['/librera'])
   }
 
   historial(){
@@ -81,6 +85,7 @@ export class ProfileComponent implements OnInit {
     this.prestaService.devolver(id).subscribe(
       response=>{
         console.log(response)
+
       }
     )
   }

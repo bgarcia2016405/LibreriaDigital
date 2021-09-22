@@ -20,7 +20,9 @@ export class LibreroComponent implements OnInit {
   public tipo
   public busqueda : Bibliografia;
   public bibliografia
-  public
+  public busquedaCopias;
+  public busquedaDisponible;
+  public agregar: Bibliografia;
 
   constructor(
     public bibliografiaService:BibliografiaService,
@@ -31,6 +33,7 @@ export class LibreroComponent implements OnInit {
     this.user = new User("","","","","","","","");
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
     this.busqueda = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
+    this.agregar = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
   }
 
   ngOnInit(): void {
@@ -39,6 +42,8 @@ export class LibreroComponent implements OnInit {
     this.bibliografia = "titulo"
     this.populares();
     console.log(this.identidad)
+    this.busquedaCopias = "mayor"
+    this.busquedaDisponible = "mayor"
   }
 
   buscarId(id){
@@ -171,5 +176,83 @@ export class LibreroComponent implements OnInit {
       }
     })
   }
+
+  BusquedaCopiasMayor(){
+    this.busquedaCopias = 'menor';
+  }
+
+  BusquedaCopiasMenor(){
+    this.busquedaCopias = 'mayor';
+  }
+
+  BusquedaDisponibleMayor(){
+    this.busquedaDisponible = 'menor';
+  }
+
+  BusquedaDisponibleMenor(){
+    this.busquedaDisponible = 'mayor';
+  }
+
+  editarBiblio(){
+    this.bibliografiaService.editar(this.busqueda.titulo,this.busqueda).subscribe(
+      response=>{
+        console.log(response)
+        Swal.fire(
+          'Editado',
+          'La bibliografía fue editada exitosamente',
+          'success'
+        )
+        this.populares()
+      },
+      errror=>{
+        console.log(<any>errror);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Error editando bibliografía',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    )
+  }
+
+  eliminarBiblio(titulo){
+    Swal.fire({
+      title: '¿Seguro que quieres eliminar la bibliografía?',
+      text: "No podra ser reversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.bibliografiaService.eliminar(titulo).subscribe(
+          response=>{
+            console.log(response)
+            Swal.fire(
+          'Eliminado',
+          'La bibliografía fue eliminado',
+          'success'
+        )
+          }
+        )
+      }
+    })
+    this.populares()
+  }
+
+  crear(){
+    this.agregar.type = this.tipo
+    this.bibliografiaService.crearBibliografia(this.agregar).subscribe(
+      reponse=>{
+        console.log(reponse)
+        this.populares();
+      }
+    )
+  }
+
 
 }

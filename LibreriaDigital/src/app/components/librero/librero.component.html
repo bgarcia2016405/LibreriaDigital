@@ -14,7 +14,7 @@
 <nav class="navbar navbar-light">
   <div class="container-fluid">
     <div class="form-floating mb-3 col-3">
-      <input type="text" class="form-control" id="titulo" placeholder="name@example.com"  name="titulo" #titulo="ngModel" [(ngModel)]="busqueda.titulo">
+      <input type="text" class="form-control" id="Titulo" placeholder="name@example.com"  name="titulo" #titulo="ngModel" [(ngModel)]="busqueda.titulo">
       <label for="floatingInput"><i class="bi bi-search"></i> </label>
     </div>
     <div class="form-check  ">
@@ -60,14 +60,20 @@
 
 
   <div *ngIf="state == 'book'">
+
     <table class="table table-success table-striped tt">
+
     <thead>
+      <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Titulo</th>
         <th scope="col">Autor</th>
         <th scope="col">Edición</th>
-        <th scope="col">Disponibles</th>
+        <th scope="col" *ngIf="busquedaCopias == 'mayor'">Copias <a (click)="BusquedaCopiasMayor()"><i class="bi bi-caret-down-fill" ></i></a></th>
+        <th scope="col" *ngIf="busquedaCopias == 'menor'" >Copias <a (click)="BusquedaCopiasMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
+        <th scope="col" *ngIf="busquedaDisponible == 'mayor'">Disponibles <a (click)="BusquedaDisponibleMayor()"><i class="bi bi-caret-down-fill"></i></a></th>
+        <th scope="col" *ngIf="busquedaDisponible == 'menor'">Disponibles <a (click)="BusquedaDisponibleMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
@@ -77,11 +83,12 @@
         <td>{{book.titulo}}</td>
         <td>{{book.autor}}</td>
         <td>{{book.edicion}}</td>
+        <td>{{book.copias}}</td>
         <td>{{book.disponibles}}</td>
         <td>
           <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="buscarId(book._id)"><i class="bi bi-eye" (click)="buscarId(book._id)"></i></button>
-          <button type="button" class="btn btn-warning" *ngIf="identidad.rol != 'estudante'"><i class="bi bi-pen"></i></button>
-          <button type="button" class="btn btn-danger"  *ngIf="identidad.rol != 'estudante'"><i class="bi bi-trash"></i></button>
+          <button type="button" class="btn btn-warning" *ngIf="identidad.rol != 'estudante'" data-bs-toggle="modal" data-bs-target="#EditModal" (click)="buscarId(book._id)"><i class="bi bi-pen" (click)="buscarId(book._id)"></i></button>
+          <button type="button" class="btn btn-danger"  *ngIf="identidad.rol != 'estudante'" (click)="eliminarBiblio(book.titulo)"><i class="bi bi-trash" (click)="eliminarBiblio(book.titulo)"></i></button>
         </td>
       </tr>
     </tbody>
@@ -110,10 +117,8 @@
                 <p>{{busqueda.palabrasClave}}</p>
               </div>
               <div class="page5">
-
               </div>
               <div class="page4">
-
               </div>
               <div class="page3"></div>
               <div class="page2"></div>
@@ -125,23 +130,138 @@
             </div>
           </div>
           <div class="col" style="text-align: right;">
-
              <p> {{busqueda.descripccion}} </p>
-
-
              <h5>Disponibles: {{busqueda.disponibles}} </h5>
-
-
-
              <button type="button" class="btn btn-outline-primary" style="margin-bottom: auto; margin-top: auto" (click)="verificacion()">Prestar</button>
           </div>
-
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="EditModal">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
 
+        <form>
 
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Titulo</label>
+            <input type="text" class="form-control" id="titulo"  name="titulo" #titulo="ngModel" [(ngModel)]="busqueda.titulo">
+          </div>
+          <div class="mb-3">
+            <label for="autor" class="form-label">Autor</label>
+            <input type="text" class="form-control" id="autor" name="autor" #autor="ngModel" [(ngModel)]="busqueda.autor">
+          </div>
+          <div class="mb-3">
+            <label for="edicion" class="form-label">Edicion</label>
+            <input type="text" class="form-control" id="edicion" name="edicion" #edicion="ngModel" [(ngModel)]="busqueda.edicion">
+          </div>
+          <div class="mb-3">
+            <label for="palabrasClave" class="form-label">Palabras Clave</label>
+            <input type="text" class="form-control" id="palabrasClave" name="palabrasClave" #palabrasClave="ngModel" [(ngModel)]="busqueda.palabrasClave">
+          </div>
+          <div class="mb-3">
+            <label for="temas" class="form-label">Temas</label>
+            <input type="text" class="form-control" id="temas" name="temas" #temas="ngModel" [(ngModel)]="busqueda.temas">
+          </div>
+          <div class="mb-3">
+            <label for="descripccion" class="form-label">Descripccion</label>
+            <textarea class="form-control" id="descripccion" rows="3" name="descripccion" #descripccion="ngModel" [(ngModel)]="busqueda.descripccion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="copias" class="form-label">Copias</label>
+            <input type="number" class="form-control" id="copias" name="copias" #copias="ngModel" [(ngModel)]="busqueda.copias">
+          </div>
+          <div class="mb-3">
+            <label for="disponibles" class="form-label">Disponibles</label>
+            <input type="number" class="form-control" id="disponibles" name="disponibles" #disponibles="ngModel" [(ngModel)]="busqueda.disponibles">
+          </div>
+          <div class="mb-3" *ngIf="busqueda.type == 'Revista'">
+            <label for="ejemplares" class="form-label">Ejemplares</label>
+            <input type="number" class="form-control" id="ejemplares" name="ejemplares" #ejemplares="ngModel" [(ngModel)]="busqueda.ejemplares">
+          </div>
+          <div class="mb-3" *ngIf="busqueda.type == 'Revista'">
+            <label for="frecuenciaActual" class="form-label">Frecuencia Actual</label>
+            <input type="text" class="form-control" id="frecuenciaActual" name="frecuenciaActual" #frecuenciaActual="ngModel" [(ngModel)]="busqueda.frecuenciaActual" >
+          </div>
 
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="editarBiblio()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="AgregarModal" tabindex="-1" aria-labelledby="AgregarModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AgregarModal">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+
+          <div class="mb-3">
+            <label for="tituloA" class="form-label">Titulo</label>
+            <input type="text" class="form-control" id="tituloA"  name="titulo" #titulo="ngModel" [(ngModel)]="agregar.titulo">
+          </div>
+          <div class="mb-3">
+            <label for="autorA" class="form-label">Autor</label>
+            <input type="text" class="form-control" id="autorA" name="autor" #autor="ngModel" [(ngModel)]="agregar.autor">
+          </div>
+          <div class="mb-3">
+            <label for="edicionA" class="form-label">Edicion</label>
+            <input type="text" class="form-control" id="edicionA" name="edicion" #edicion="ngModel" [(ngModel)]="agregar.edicion">
+          </div>
+          <div class="mb-3">
+            <label for="palabrasClaveA" class="form-label">Palabras Clave</label>
+            <input type="text" class="form-control" id="palabrasClaveA" name="palabrasClave" #palabrasClave="ngModel" [(ngModel)]="agregar.palabrasClave">
+          </div>
+          <div class="mb-3">
+            <label for="temasA" class="form-label">Temas</label>
+            <input type="text" class="form-control" id="temasA" name="temas" #temas="ngModel" [(ngModel)]="agregar.temas">
+          </div>
+          <div class="mb-3">
+            <label for="descripccionA" class="form-label">Descripccion</label>
+            <textarea class="form-control" id="descripccionA" rows="3" name="descripccion" #descripccion="ngModel" [(ngModel)]="agregar.descripccion"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="copiasA" class="form-label">Copias</label>
+            <input type="number" class="form-control" id="copiasA" name="copias" #copias="ngModel" [(ngModel)]="agregar.copias">
+          </div>
+          <div class="mb-3">
+            <label for="disponiblesA" class="form-label">Disponibles</label>
+            <input type="number" class="form-control" id="disponiblesA" name="disponibles" #disponibles="ngModel" [(ngModel)]="agregar.disponibles">
+          </div>
+          <div class="mb-3" *ngIf="tipo == 'Revista'">
+            <label for="ejemplaresA" class="form-label">Ejemplares</label>
+            <input type="number" class="form-control" id="ejemplaresA" name="ejemplares" #ejemplares="ngModel" [(ngModel)]="agregar.ejemplares">
+          </div>
+          <div class="mb-3" *ngIf="tipo == 'Revista'">
+            <label for="frecuenciaActualA" class="form-label">Frecuencia Actual</label>
+            <input type="text" class="form-control" id="frecuenciaActualA" name="frecuenciaActual" #frecuenciaActual="ngModel" [(ngModel)]="agregar.frecuenciaActual" >
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="crear()">Save changes</button>
+      </div>
     </div>
   </div>
 </div>

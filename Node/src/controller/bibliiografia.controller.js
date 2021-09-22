@@ -90,19 +90,30 @@ function editarBiblio(req,res){
     var identidad = req.user.rol;
     var params = req.body;
 
-    params.palabrasClave = params.palabrasClave.split(';');
-    params.temas = params.temas.split(';');
+    params.palabrasClave = params.palabrasClave.toString().split(',');
+    params.temas = params.temas.toString().split(',');
+
+    
   
     if(identidad != admin) return res.status(404).send({report:'No es administrador'});
 
-    biblioModel.findOneAndUpdate({titulo:titulo} ,params, {new:true} ,(err,bibiEdit)=>{
+    biblioModel.findOne({titulo:titulo}, (err,bibiFound)=>{
+
+        if(err) return res.status(404).send({report:'Error buscando bibliografia'});
+
+        if(bibiFound) return res.status(404).send({report:'El titulo ya existe'});
+
+            biblioModel.findOneAndUpdate({_id:params._id} ,params, {new:true} ,(err,bibiEdit)=>{
+            
+                if(err) return res.status(404).send({report:'Error editando bibliografia'});
         
-        if(err) return res.status(404).send({report:'Error editando bibliografia'});
-
-        if(!bibiEdit) return res.status(500).send({report:'Bibliografia no editada'});
-
-        return res.status(200).send(bibiEdit);
+                if(!bibiEdit) return res.status(404).send({report:'Bibliografia no editada'});
+        
+                return res.status(200).send(bibiEdit);
+            })
     })
+
+    
 
 }
 

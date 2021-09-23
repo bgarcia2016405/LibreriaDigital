@@ -54,14 +54,14 @@ export class BibliografiaService {
     return this.http.get(this.url + '/buscarTituloBiblio/' + titulo + '/' + tipo, {headers:headersToken})
    }
 
-   buscarCopias(orden):Observable<any>{
+   buscarCopias(orden,tipo):Observable<any>{
 
-    return this.http.get(this.url + '/buscarCopias/' + orden, {headers:this.headers})
+    return this.http.get(this.url + '/buscarCopias/' + orden + '/' + tipo, {headers:this.headers})
    }
 
-   buscarDisponibles(orden):Observable<any>{
+   buscarDisponibles(orden,tipo):Observable<any>{
 
-    return this.http.get(this.url + '/buscarDisponibles/' + orden, {headers:this.headers})
+    return this.http.get(this.url + '/buscarDisponibles/' + orden + '/' + tipo, {headers:this.headers})
    }
 
    buscarPlabra(palabra,tipo):Observable<any>{

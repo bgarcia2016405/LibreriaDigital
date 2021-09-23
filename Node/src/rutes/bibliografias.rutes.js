@@ -16,9 +16,9 @@ api.put('/editarBibliografia/:titulo', authenticated.ensureAuth, biblioControlle
 
 api.delete('/eliminarBibliografia/:titulo', authenticated.ensureAuth, biblioController.eliminarBiblio);
 
-api.get('/buscarCopias/:orden', biblioController.buscarCopias);
+api.get('/buscarCopias/:orden/:tipo', biblioController.buscarCopias);
 
-api.get('/buscarDisponibles/:orden', biblioController.buscarDisponibles);
+api.get('/buscarDisponibles/:orden/:tipo', biblioController.buscarDisponibles);
 
 api.get('/buscarPlabra/:palabra/:tipo', biblioController.buscarPalabra);
 

@@ -37,13 +37,13 @@ export class LibreroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.state = "book"
+    this.state = "srch"
     this.tipo = "Libro"
     this.bibliografia = "titulo"
     this.populares();
     console.log(this.identidad)
-    this.busquedaCopias = "mayor"
-    this.busquedaDisponible = "mayor"
+    this.busquedaCopias = "Mayor"
+    this.busquedaDisponible = "Mayor"
   }
 
   buscarId(id){
@@ -178,19 +178,39 @@ export class LibreroComponent implements OnInit {
   }
 
   BusquedaCopiasMayor(){
-    this.busquedaCopias = 'menor';
+    this.busquedaCopias = 'Menor';
+    this.bibliografiaService.buscarCopias(this.busquedaCopias,this.tipo).subscribe(
+      response=>{
+        this.libros = response;
+      }
+    )
   }
 
   BusquedaCopiasMenor(){
-    this.busquedaCopias = 'mayor';
+    this.busquedaCopias = 'Mayor';
+    this.bibliografiaService.buscarCopias(this.busquedaCopias,this.tipo).subscribe(
+      response=>{
+        this.libros = response;
+      }
+    )
   }
 
   BusquedaDisponibleMayor(){
-    this.busquedaDisponible = 'menor';
+    this.busquedaDisponible = 'Menor';
+    this.bibliografiaService.buscarDisponibles(this.busquedaDisponible,this.tipo).subscribe(
+      response=>{
+        this.libros = response;
+      }
+    )
   }
 
   BusquedaDisponibleMenor(){
-    this.busquedaDisponible = 'mayor';
+    this.busquedaDisponible = 'Mayor';
+    this.bibliografiaService.buscarDisponibles(this.busquedaDisponible,this.tipo).subscribe(
+      response=>{
+        this.libros = response;
+      }
+    )
   }
 
   editarBiblio(){

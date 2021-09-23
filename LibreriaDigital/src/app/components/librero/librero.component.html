@@ -64,16 +64,16 @@
     <table class="table table-success table-striped tt">
 
     <thead>
-      <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
+      <button *ngIf="identidad.rol == 'admin'" type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Titulo</th>
         <th scope="col">Autor</th>
         <th scope="col">Edición</th>
-        <th scope="col" *ngIf="busquedaCopias == 'mayor'">Copias <a (click)="BusquedaCopiasMayor()"><i class="bi bi-caret-down-fill" ></i></a></th>
-        <th scope="col" *ngIf="busquedaCopias == 'menor'" >Copias <a (click)="BusquedaCopiasMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
-        <th scope="col" *ngIf="busquedaDisponible == 'mayor'">Disponibles <a (click)="BusquedaDisponibleMayor()"><i class="bi bi-caret-down-fill"></i></a></th>
-        <th scope="col" *ngIf="busquedaDisponible == 'menor'">Disponibles <a (click)="BusquedaDisponibleMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
+        <th scope="col" *ngIf="busquedaCopias == 'Mayor'">Copias <a (click)="BusquedaCopiasMayor()"><i class="bi bi-caret-down-fill" ></i></a></th>
+        <th scope="col" *ngIf="busquedaCopias == 'Menor'" >Copias <a (click)="BusquedaCopiasMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
+        <th scope="col" *ngIf="busquedaDisponible == 'Mayor'">Disponibles <a (click)="BusquedaDisponibleMayor()"><i class="bi bi-caret-down-fill"></i></a></th>
+        <th scope="col" *ngIf="busquedaDisponible == 'Menor'">Disponibles <a (click)="BusquedaDisponibleMenor()"><i class="bi bi-caret-up-fill"></i></a></th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>

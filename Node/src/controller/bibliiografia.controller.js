@@ -138,9 +138,12 @@ function eliminarBiblio(req,res){
 function buscarCopias(req,res){
 
     var orden = req.params.orden;
+    var type = req.params.tipo;
+
+    
 
     if(orden == 'Mayor'){
-        biblioModel.find((err,bibiFound)=>{
+        biblioModel.find({type:type},(err,bibiFound)=>{
             if(err) return res.status(404).send({report:'Error buscando bibliografía'});
 
             if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
@@ -150,7 +153,7 @@ function buscarCopias(req,res){
     }
 
     if(orden == 'Menor'){
-        biblioModel.find((err,bibiFound)=>{
+        biblioModel.find({type:type},(err,bibiFound)=>{
             if(err) return res.status(404).send({report:'Error buscando bibliografía'});
 
             if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
@@ -163,9 +166,10 @@ function buscarCopias(req,res){
 function buscarDisponibles(req,res){
 
     var orden = req.params.orden;
+    var type = req.params.tipo;
 
     if(orden == 'Mayor'){
-        biblioModel.find((err,bibiFound)=>{
+        biblioModel.find({type:type},(err,bibiFound)=>{
             if(err) return res.status(404).send({report:'Error buscando bibliografía'});
 
             if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});
@@ -175,7 +179,7 @@ function buscarDisponibles(req,res){
     }
 
     if(orden == 'Menor'){
-        biblioModel.find((err,bibiFound)=>{
+        biblioModel.find({type:type},(err,bibiFound)=>{
             if(err) return res.status(404).send({report:'Error buscando bibliografía'});
 
             if(bibiFound == '') res.status(500).send({report:'No existen bilbiografias'});

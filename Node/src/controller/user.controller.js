@@ -52,12 +52,17 @@ function createUser(req,res){
     UserModel.rol = params.rol;
     UserModel.password = params.password;
 
+    if(UserModel.nombres == "" || UserModel.IDUser == "" || UserModel.apellidos == "" || UserModel.usuario == "" ||
+         UserModel.eMail == "" || UserModel.password == ""){
+        return res.status(404).send({report:'Llene todos los espacios'});
+    }
+
     userModel.findOne({$or:
                         [{IDUser:UserModel.IDUser},
                         {usuario:UserModel.usuario}]}, (err,userFound)=>{
         if(err) return res.status(404).send({report:'Error buscando usuario'});
 
-        if(userFound) return res.status(202).send({report:'El CUI o Usuario son existentes'});
+        if(userFound) return res.status(404).send({report:'El CUI o Usuario son existentes'});
 
         bcrypt.hash(params.password, null, null, (err, passewodEncriptada) => {
             if (err) return console.log("password request error");
@@ -137,11 +142,26 @@ function usuarioTipo(req,res){
     })
 }
 
+function listarUsuario(req,res){
+    var authorization = req.user.rol;
+
+    if(authorization != admin) return res.status(404).send({report:'No es administrador'});
+
+    userModel.find((err,userFound)=>{
+        if (err) return res.status(404).send({ report: 'Error at Login' });
+
+        if (!userFound) return res.status(404).send({ report: 'user dosent exist' });
+
+        return res.status(200).send(userFound);
+    })
+}
+
 module.exports = {
     Login,
     createUser,
     eliminarUsuario,
     editarUsurio,
     usuarioId,
-    usuarioTipo
+    usuarioTipo,
+    listarUsuario
 }

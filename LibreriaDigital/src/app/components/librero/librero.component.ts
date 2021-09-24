@@ -269,6 +269,13 @@ export class LibreroComponent implements OnInit {
     this.bibliografiaService.crearBibliografia(this.agregar).subscribe(
       reponse=>{
         console.log(reponse)
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Bibliografía agregada',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.populares();
       }
     )

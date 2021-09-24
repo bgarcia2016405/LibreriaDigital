@@ -2,63 +2,96 @@
 
 <nav role="navigation" class="primary-navigation">
   <ul>
-    <li><a >Agregar</a></li>
-    <li><a >Editar</a></li>
-    <li><a >Eliminar </a></li>
-    <li><a >Tabla</a></li>
+    <li><a (click)="agregarEstado('Agregar')">Agregar</a></li>
+    <li><a (click)="agregarEstado('Editar')">Editar</a></li>
+    <li><a (click)="agregarEstado('Eliminar')">Eliminar </a></li>
+    <li><a (click)="agregarEstado('Tabla')">Tabla</a></li>
   </ul>
 </nav>
 
 
 <div ><br>
 
- <div class="card">
-  <h2>Formulario</h2>
+ <div *ngIf="state != null && state != 'Tabla'" class="card">
+  <h2>{{state}}</h2>
+
+      <div *ngIf="state != 'Agregar'">
+        <select class="form-select selec" aria-label="Default select example" id="_idUser" name="_id" #_id="ngModel" [(ngModel)]="userID._id" (change)="onChage()">
+        <option selected>ID-Usuario</option>
+        <option *ngFor="let us of user" value="{{us._id}}">{{us._id}} | {{us.usuario}} | {{us.rol}}</option>
+        </select>
+      </div>
+
+
   <div class="row">
+
     <div class="col">
       <div class="form-group">
         <label>ID-Usuario</label>
-        <input type="text">
+        <input type="text" id="IDUser" name="IDUser" #IDUser="ngModel" [(ngModel)]="userChange.IDUser" *ngIf="userChange != null">
+        <input type="text"  *ngIf="userChange == null">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
         <label>Nombre</label>
-        <input type="text">
+        <input type="text" id="nombres" name="nombres" #nombres="ngModel" [(ngModel)]="userChange.nombres" *ngIf="userChange != null">
+        <input type="text" *ngIf="userChange == null">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
         <label>Apellido</label>
-        <input type="text">
+        <input type="text" id="apellidos" name="apellidos" #apellidos="ngModel" [(ngModel)]="userChange.apellidos" *ngIf="userChange != null">
+        <input type="text" *ngIf="userChange == null">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
         <label>Usuario</label>
-        <input type="text">
+        <input type="text" id="usuario" name="usuario" #usuario="ngModel" [(ngModel)]="userChange.usuario" *ngIf="userChange != null">
+        <input type="text" *ngIf="userChange == null">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
         <label>E-Mail</label>
-        <input type="email">
+        <input type="email" id="eMail" name="eMail" #eMail="ngModel" [(ngModel)]="userChange.eMail" *ngIf="userChange != null">
+        <input type="email"  *ngIf="userChange == null">
+      </div>
+    </div>
+
+    <div class="col" *ngIf="state == 'Agregar'">
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="userChange.password" *ngIf="userChange != null">
+        <input type="password" id="password"  *ngIf="userChange == null">
       </div>
     </div>
 
     <div class="col">
       <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password">
+        <label>Rol</label>
+        <select class="form-select selec" aria-label="Default select example"  id="rol" name="rol" #rol="ngModel" [(ngModel)]="userChange.rol" *ngIf="userChange != null">
+          <option >{{userChange.rol}}</option>
+          <option value="estudiante">estudiante</option>
+          <option value="bibliotecario">bibliotecario</option>
+          <option value="admin">admin</option>
+          </select>
+          <select class="form-select selec" aria-label="Default select example"   *ngIf="userChange == null">
+            <option value="estudiante">estudiante</option>
+            <option value="bibliotecario">bibliotecario</option>
+            <option value="admin">admin</option>
+            </select>
       </div>
     </div>
 
     <div class="col">
-      <input type="submit" value="Submit">
+      <input type="submit" value="{{state}}" (click)="stage()">
     </div>
   </div>
 </div>

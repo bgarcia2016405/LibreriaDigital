@@ -144,7 +144,7 @@ a {
 }
 
 .row .col:nth-child(6) {
-  margin-top: 64px;
+  margin-top: 55px;
 }
 
 .card .row .form-group input:focus,
@@ -193,4 +193,17 @@ a {
   .card .row input[type="submit"] {
     width: 100%;
   }
+}
+
+.selec{
+  width: 90%;
+  height: 100%;
+  text-align: center;
+  font-size: 15px;
+  border: 5px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  border-radius: 50px;
+  background: #666666;
+
 }

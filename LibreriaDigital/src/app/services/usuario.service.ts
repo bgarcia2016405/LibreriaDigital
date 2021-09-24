@@ -16,7 +16,7 @@ export class UsuarioService {
 
   constructor(
     public http:HttpClient
-  ) { 
+  ) {
     this.url = GLOBAL.url;
   }
 
@@ -24,6 +24,44 @@ export class UsuarioService {
     let params = JSON.stringify(usuario);
 
     return this.http.post(this.url + '/Login' , params, {headers: this.headers});
+  }
+
+  crearUsuario(usuario):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+    let params = JSON.stringify(usuario);
+
+    return this.http.post(this.url + '/crearUsuario', params, {headers: headersToken})
+  }
+
+  editarUsuario(usuario,id):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+    let params = JSON.stringify(usuario);
+
+    return this.http.put(this.url + '/actualizarUsuario/' + id, params, {headers: headersToken})
+  }
+
+  eliminarUsuario(id):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken());
+
+    return this.http.delete(this.url + '/eliminarUsuario/' + id,{headers:headersToken})
+  }
+
+  usuarioId(id):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken());
+
+    return this.http.get(this.url + '/usuarioId/' + id, {headers:headersToken})
+  }
+
+  listarUsuarioTodos():Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken());
+
+    return this.http.get(this.url + '/listarUsuarios',  {headers:headersToken})
+  }
+
+  listarUsuario():Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken());
+
+    return this.http.get(this.url + '/mostrarTipoUsuario/estudiante',  {headers:headersToken})
   }
 
   getToken(){

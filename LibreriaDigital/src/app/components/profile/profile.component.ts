@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
     private router:Router
   ) {
     this.identidad = userService.getIdentidad();
-    this.tabla = new Prestamos("","","","");
+    this.tabla = new Prestamos("","","","","");
   }
 
   ngOnInit(): void {
@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
 
     this.identidad = this.userService.getIdentidad();
     this.tabla = null
-    this.router.navigate(['/librera'])
   }
 
   historial(){

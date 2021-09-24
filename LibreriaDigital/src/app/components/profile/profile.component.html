@@ -38,7 +38,7 @@
         <tbody>
           <tr *ngFor="let bibi of tabla, let i = index">
             <th scope="row">{{i}}</th>
-            <td>{{bibi.bibliografia.titulo}}</td>
+            <td>{{bibi.titulo}}</td>
             <td>{{bibi.estado}}</td>
             <td *ngIf="state == 'posesion'">
               <button type="button" class="btn btn-outline-success" (click)="verificacion(bibi._id)">Devolver</button>

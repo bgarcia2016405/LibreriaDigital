@@ -43,7 +43,8 @@
       <div *ngIf="i <= 10"  class="tituloLibro" >
 
         <button type="button"  class="btn lomo"
-        data-bs-toggle="modal" data-bs-target="#exampleModal"> {{libro.titulo}} </button>
+        data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="buscarId(libro._id)"> {{libro.titulo}} </button>
       </div>
 
       <div class="ico">

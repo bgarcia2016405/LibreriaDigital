@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   }
 
   historial(){
-    this.prestaService.historial().subscribe(
+    this.prestaService.historial(this.identidad.usuario).subscribe(
       response=>{
         this.tabla = response
         console.log(response)
@@ -58,7 +58,7 @@ export class ProfileComponent implements OnInit {
   }
 
   posesion(){
-    this.prestaService.posesion().subscribe(
+    this.prestaService.posesion(this.identidad.usuario).subscribe(
       response=>{
         this.tabla = response
         console.log(response)

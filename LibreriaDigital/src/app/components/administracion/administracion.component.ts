@@ -18,6 +18,8 @@ export class AdministracionComponent implements OnInit {
   public biblio : Bibliografia;
   public userChange: User;
   public userID: User;
+  public IDUserState
+  public userTable: User;
 
   constructor(
     public bibliografiaService:BibliografiaService,
@@ -27,12 +29,15 @@ export class AdministracionComponent implements OnInit {
     this.user = new User("","","","","","","","");
     this.userID = new User("","","","","","","","");
     this.userChange = new User("","","","","","","","");
+    this.userTable = new User("","","","","","","","");
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
 
   }
 
   ngOnInit(): void {
     this.listarUsuario()
+    this.IDUserState = "Mayor"
+    this.todos();
   }
 
   agregarEstado(state){
@@ -41,12 +46,33 @@ export class AdministracionComponent implements OnInit {
     this.userID._id = ""
   }
 
+  todos(){
+    this.userService.listarUsuarioTodos().subscribe(
+      response=>{
+        this.userTable = response
+        console.log(response)
+      }
+    )
+  }
+
   listarUsuario(){
     this.userService.listarUsuario().subscribe(
       response=>{
         this.user = response;
       }
     )
+  }
+
+  editar(user){
+    this.userChange = user
+    console.log(this.userChange)
+    this.state = 'Editar'
+  }
+
+  eliminar(user){
+    this.userChange = user
+    console.log(this.userChange)
+    this.state = 'Eliminar'
   }
 
   stage(){
@@ -125,15 +151,13 @@ export class AdministracionComponent implements OnInit {
   }
 
   onChage(){
-
     this.userService.usuarioId(this.userID._id).subscribe(
       response=>{
         this.userChange = response
-        console.log(this.userChange)
       }
     )
-
   }
+
 
 
 }

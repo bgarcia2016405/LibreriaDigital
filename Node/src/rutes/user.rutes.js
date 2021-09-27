@@ -20,4 +20,6 @@ api.get('/mostrarTipoUsuario/:typo', authenticated.ensureAuth, userController.us
 
 api.get('/listarUsuarios', authenticated.ensureAuth, userController.listarUsuario);
 
+api.get('/mostrarId/:orden', authenticated.ensureAuth, userController.buscarXId);
+
 module.exports = api;

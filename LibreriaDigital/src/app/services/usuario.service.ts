@@ -64,6 +64,12 @@ export class UsuarioService {
     return this.http.get(this.url + '/mostrarTipoUsuario/estudiante',  {headers:headersToken})
   }
 
+  mostrarID(orde):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken());
+
+    return this.http.get(this.url + '/mostrarId/' + orde,  {headers:headersToken})
+  }
+
   getToken(){
     var token2 = localStorage.token;
     if(token2 != undefined){

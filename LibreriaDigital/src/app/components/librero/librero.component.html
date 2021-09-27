@@ -9,6 +9,9 @@
 
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
     <label class="btn btn-outline-secondary" for="btnradio2" (click)="revis()">Revistas</label>
+
+    <input *ngIf="identidad.rol == 'admin'" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+    <label *ngIf="identidad.rol == 'admin'" class="btn btn-outline-secondary" for="btnradio3" routerLink="/administracion">Usuarios</label>
   </div>
 
 <nav class="navbar navbar-light">
@@ -88,8 +91,8 @@
         <td>{{book.disponibles}}</td>
         <td>
           <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="buscarId(book._id)"><i class="bi bi-eye" (click)="buscarId(book._id)"></i></button>
-          <button type="button" class="btn btn-warning" *ngIf="identidad.rol != 'estudante'" data-bs-toggle="modal" data-bs-target="#EditModal" (click)="buscarId(book._id)"><i class="bi bi-pen" (click)="buscarId(book._id)"></i></button>
-          <button type="button" class="btn btn-danger"  *ngIf="identidad.rol != 'estudante'" (click)="eliminarBiblio(book.titulo)"><i class="bi bi-trash" (click)="eliminarBiblio(book.titulo)"></i></button>
+          <button type="button" class="btn btn-warning" *ngIf="identidad.rol != 'estudiante'" data-bs-toggle="modal" data-bs-target="#EditModal" (click)="buscarId(book._id)"><i class="bi bi-pen" (click)="buscarId(book._id)"></i></button>
+          <button type="button" class="btn btn-danger"  *ngIf="identidad.rol != 'estudiante'" (click)="eliminarBiblio(book.titulo)"><i class="bi bi-trash" (click)="eliminarBiblio(book.titulo)"></i></button>
         </td>
       </tr>
     </tbody>

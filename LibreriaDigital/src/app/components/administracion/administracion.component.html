@@ -18,7 +18,7 @@
       <div *ngIf="state != 'Agregar'">
         <select class="form-select selec" aria-label="Default select example" id="_idUser" name="_id" #_id="ngModel" [(ngModel)]="userID._id" (change)="onChage()">
         <option selected>ID-Usuario</option>
-        <option *ngFor="let us of user" value="{{us._id}}">{{us._id}} | {{us.usuario}} | {{us.rol}}</option>
+        <option *ngFor="let us of user" value="{{us._id}}">{{us.IDUser}} | {{us.usuario}} | {{us.rol}}</option>
         </select>
       </div>
 
@@ -96,4 +96,48 @@
   </div>
 </div>
 
+</div>
+
+<div *ngIf="state == 'Tabla'">
+
+  <table class="table table-success table-striped tt">
+
+  <thead>
+    <button *ngIf="identidad.rol == 'admin'" type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
+    <tr>
+      <th scope="col" *ngIf="IDUserState == 'Mayor'">ID-Usuario <a ><i class="bi bi-caret-down-fill" ></i></a></th>
+      <th scope="col" *ngIf="busquedaCopias == 'Menor'" >ID-Usuario <a ><i class="bi bi-caret-up-fill"></i></a></th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">E-Mail</th>
+      <th scope="col">Rol</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userTable, let i = index">
+      <td>{{user.IDUser}}</td>
+      <td>{{user.nombres}}</td>
+      <td>{{user.apellidos}}</td>
+      <td>{{user.usuario}}</td>
+      <td>{{user.eMail}}</td>
+      <td>{{user.rol}}</td>
+      <td>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalLabel"><i class="bi bi-eye" ></i></button>
+        <button type="button" class="btn btn-warning" *ngIf="user.rol != 'admin'" (click)="editar(user)"><i class="bi bi-pen" (click)="editar(user)"></i></button>
+        <button type="button" class="btn btn-danger"  *ngIf="user.rol != 'admin'"  (click)="eliminar(user)"><i class="bi bi-trash" (click)="eliminar(user)"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="modal fade " id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content" >
+
+...
+    </div>
+  </div>
 </div>

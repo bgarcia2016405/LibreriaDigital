@@ -34,19 +34,19 @@ export class PrestamosService {
 
   }
 
-  historial():Observable<any>{
+  historial(id):Observable<any>{
 
     let headersToken = this.headers.set('Authorization', this.getToken());
 
-    return this.http.get(this.url + '/historial', {headers:headersToken});
+    return this.http.get(this.url + '/historial/' + id, {headers:headersToken});
 
   }
 
-  posesion():Observable<any>{
+  posesion(id):Observable<any>{
 
     let headersToken = this.headers.set('Authorization', this.getToken());
 
-    return this.http.get(this.url + '/posesion', {headers:headersToken});
+    return this.http.get(this.url + '/posesion/' + id, {headers:headersToken});
 
   }
 

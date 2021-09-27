@@ -156,6 +156,24 @@ function listarUsuario(req,res){
     })
 }
 
+
+
+function buscarXId(){
+    var orden = req.params.orden;
+    var i
+
+    if(orden == 'Mayor') i=1
+    if(orden == 'Menor') i=-1
+
+        userModel.find((err,userFound)=>{
+            if(err) return res.status(404).send({report: 'Error buscando los Usuarios'});
+
+            if(userFound == '') return res.status(404).send({report: 'no existen los usuarios'});
+
+            return res.status(200).send(userFound);
+        }).sort({IDUser:i})
+}
+
 module.exports = {
     Login,
     createUser,
@@ -163,5 +181,6 @@ module.exports = {
     editarUsurio,
     usuarioId,
     usuarioTipo,
-    listarUsuario
+    listarUsuario,
+    buscarXId
 }

@@ -1,68 +1,94 @@
 
 <div class="center" >
   <br><br>
-    <h1>
+    <h1 style="color: #bdb9b7;">
       Libreria Cosmos
     </h1>
   </div>
 
+<div class="home center">
 
-  <div class="center">
+  <div class="logeandose" *ngIf="state == 'about'">
 
-    <button type="button" class="btn btn-warning" style="width: 500px;" (click)="about()">About</button>
+    <h1>
+      ¿Quieres entrar <br> a la aplicación?
+    </h1><br><br><br><br>
 
-    <button type="button" class="btn btn-info" style="width: 500px;" (click)="login()">Login</button>
-
-
-  </div>
-
-
-  <div *ngIf="state=='none'" class="center" >
-
-    <img src="assets/img/Space.png" alt="">
+    <button type="button" class="btn btn-outline-info btn-lg" (click)="login()">Login</button>
 
   </div>
 
+  <div class="viendome" *ngIf="state == 'login'"><br>
 
+    <h1>
+      Acerca <br> De Mi
+    </h1><br><br>
 
-  <div *ngIf="state == 'login'"  style="margin-top: 100px; " class="container center counter" >
-    <form>
-        <div class="form-floating mb-3 ">
-          <input type="text" class="form-control" id="usuario" placeholder="Usuario o CUI" name="usuario" #usuario="ngModel" [(ngModel)]="user.usuario">
-          <label for="floatingInput">Usuario o CUI</label>
-        </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password">
-          <label for="floatingPassword">Contraseña</label>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary btn-lg" (click)="iniciar()">Inicio</button>
-
-    </form>
+    <button type="button" class="btn btn-outline-warning btn-lg" (click)="about()">About</button>
   </div>
 
 
-  <div *ngIf="state == 'about'" class="col-lg-4  center" style="margin-top: 100px;" >
-    <div class="car">
-      <div class=" carTop">
-        <img
-          class=" imgProfile"
-          src="assets/img/Byron.jfif"
-        />
 
-        <h3 class="title">Developer</h3>
-      </div><br><br>
-      <div class="carsBody">
+<div *ngIf="state == 'login'"   class="rigth"><br><br><br><br><br><br>
 
+  <form style="width: 50%;margin-left: 10rem;"><br><br>
+    <h1><i class="bi bi-people-fill"></i></h1><br>
+    <div class="form-floating mb-3 ">
+      <input type="text" class="form-control" id="usuario" placeholder="Usuario o CUI" name="usuario" #usuario="ngModel" [(ngModel)]="user.usuario">
+      <label for="floatingInput">Usuario o CUI</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="password" placeholder="Contraseña" name="password" #password="ngModel" [(ngModel)]="user.password">
+      <label for="floatingPassword">Contraseña</label>
+    </div>
+    <br><br>
+    <button type="button" class="btn btn-primary btn-lg" (click)="iniciar()">Inicio</button>
 
-      <p class="h4">Byron Haldaír García Guzmán</p>
+</form>
 
-      <p class="h4">2016-405</p>
+</div>
 
-      <p class="h4">Practica Supervisada</p>
+<div *ngIf="state == 'about'"   class="lefth"><br><br><br><br><br><br>
+
+  <div class="cardsProfile">
+    <img
+        class=" imgProfile"
+        src="assets/img/ByronRemove.png"
+      />
+
+      <div class="description">
+
+        <h3>Developer</h3><br>
+
+        <p>Byron Haldaír García Guzmán</p>
+
+        <p>2016-405</p>
+
+        <p>Practica Supervisada</p>
 
       </div>
-    </div>
   </div>
 
 
+
+</div>
+
+
+
+  <div class="car">
+    <div class=" carTop">
+
+
+      <h3 class="title">Developer</h3>
+    </div><br><br>
+    <div class="carsBody">
+
+
+    <p class="h4">Byron Haldaír García Guzmán</p>
+
+    <p class="h4">2016-405</p>
+
+    <p class="h4">Practica Supervisada</p>
+
+    </div>
+  </div>

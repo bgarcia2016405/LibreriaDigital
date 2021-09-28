@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.state = "none"
+    this.state = "about"
   }
 
   about(){
@@ -46,6 +46,13 @@ export class HomeComponent implements OnInit {
         this.token=response.token;
         localStorage.setItem('token', JSON.stringify(this.token));
         this.router.navigate(['/librera'])
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Todo salio correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
       },
       error=>{
         console.log(<any>error);

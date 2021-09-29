@@ -29,6 +29,8 @@ function crear(req,res){
     BiblioModel.disponibles = params.disponibles;
     BiblioModel.ejemplares = params.ejemplares;
     BiblioModel.frecuenciaActual = params.frecuenciaActual;
+    BiblioModel.prestados = 0;
+    BiblioModel.buscados = 0;
 
         biblioModel.findOne({titulo:BiblioModel.titulo},(err,biblioFound)=>{
 

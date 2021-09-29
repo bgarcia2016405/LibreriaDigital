@@ -1,12 +1,24 @@
-<button class="btn btn-primary bProfile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
+<button *ngIf="userService.getIdentidad() != null" class="btn btn-outline-secondary btn-lg bProfile" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"
 (click)="getIdentidad()">
-  <i  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="bi bi-list"
+  <i  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" class="bi bi-grid-3x3-gap-fill"
   (click)="getIdentidad()"></i>
 </button>
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+<div class="offcanvas offcanvas-end colorShift" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h2 id="offcanvasRightLabel">Perfil</h2>
+
+    <nav role="navigation" class="primary-navigation">
+      <ul>
+        <li><a>Perfil</a>
+          <ul class="dropdown">
+            <li data-bs-dismiss="offcanvas"><a data-bs-dismiss="offcanvas" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">

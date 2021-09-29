@@ -27,14 +27,16 @@ function prestamo(req,res){
 
         if(biblioFound.disponibles == 0) return res.status(500).send({report:'No existen copias dispnibles en este momento'})
 
+        
+
         PrestaModel.titulo = biblioFound.titulo;
         
-                prestaModel.find({$and:[{user:user}, {bibliografia:biblioFound._id}, {estado:presta}]}, (err,libroPrestado)=>{
+                prestaModel.find({$and:[{user:PrestaModel.user}, {bibliografia:biblioFound._id}, {estado:presta}]}, (err,libroPrestado)=>{
 
                     if(err) return res.status(404).send({report:'Error buscando '});
 
                     if(libroPrestado != "") return res.status(404).send({report:'libro en posesión'})
-
+                    
                     prestaModel.find({$and:[{user:user}, {estado:presta}]}, (err,prestaFound)=>{
 
                         if(err) return res.status(404).send({report:'Error buscando historial'});

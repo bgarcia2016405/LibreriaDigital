@@ -30,7 +30,7 @@ export class LibreroComponent implements OnInit {
     public prestaService: PrestamosService
   ) {
     this.identidad = this.userService.getIdentidad();
-    this.user = new User("","","","","","","","");
+    this.user = new User("","","","","","","","",0);
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
     this.busqueda = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)
     this.agregar = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0)

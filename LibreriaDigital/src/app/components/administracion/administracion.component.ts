@@ -33,11 +33,11 @@ export class AdministracionComponent implements OnInit {
   ) {
     this.identidad = this.userService.getIdentidad();
     this.tabla = new Prestamos("","","","","");
-    this.user = new User("","","","","","","","");
-    this.userID = new User("","","","","","","","");
-    this.userChange = new User("","","","","","","","");
-    this.userTable = new User("","","","","","","","");
-    this.userInfo = new User("","","","","","","","");
+    this.user = new User("","","","","","","","",0);
+    this.userID = new User("","","","","","","","",0);
+    this.userChange = new User("","","","","","","","",0);
+    this.userTable = new User("","","","","","","","",0);
+    this.userInfo = new User("","","","","","","","",0);
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
 
   }

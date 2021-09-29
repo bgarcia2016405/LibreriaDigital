@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   public identidad
   public tabla
   public state
+  public token
 
   constructor(
     public userService : UsuarioService,
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
   }
 
   historial(){
-    this.prestaService.historial(this.identidad.usuario).subscribe(
+    this.prestaService.historial(this.identidad._id).subscribe(
       response=>{
         this.tabla = response
         console.log(response)
@@ -58,7 +59,7 @@ export class ProfileComponent implements OnInit {
   }
 
   posesion(){
-    this.prestaService.posesion(this.identidad.usuario).subscribe(
+    this.prestaService.posesion(this.identidad._id).subscribe(
       response=>{
         this.tabla = response
         console.log(response)
@@ -84,7 +85,7 @@ export class ProfileComponent implements OnInit {
     this.prestaService.devolver(id).subscribe(
       response=>{
         console.log(response)
-
+        window.location.reload();
       }
     )
   }
@@ -110,4 +111,18 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  cerrarSesion(){
+    this.identidad = null
+    this.token = null
+    localStorage.setItem('identidad', JSON.stringify(this.identidad))
+    localStorage.setItem('token', JSON.stringify(this.token));
+    this.router.navigate(['/home'])
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Sesión Cerrada',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 }

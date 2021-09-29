@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Bibliografia } from 'src/app/models/bibliogafria.model';
+import { Prestamos } from 'src/app/models/prestamos.model';
 import { User } from 'src/app/models/user.model';
 import { BibliografiaService } from 'src/app/services/bibliografia.service';
+import { PrestamosService } from 'src/app/services/prestamos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from "sweetalert2";
 
@@ -20,16 +22,22 @@ export class AdministracionComponent implements OnInit {
   public userID: User;
   public IDUserState
   public userTable: User;
+  public tabla
+  public stateInfo
+  public userInfo: User;
 
   constructor(
     public bibliografiaService:BibliografiaService,
     public userService:UsuarioService,
+    public prestaService: PrestamosService
   ) {
     this.identidad = this.userService.getIdentidad();
+    this.tabla = new Prestamos("","","","","");
     this.user = new User("","","","","","","","");
     this.userID = new User("","","","","","","","");
     this.userChange = new User("","","","","","","","");
     this.userTable = new User("","","","","","","","");
+    this.userInfo = new User("","","","","","","","");
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
 
   }
@@ -59,6 +67,17 @@ export class AdministracionComponent implements OnInit {
     this.userService.listarUsuario().subscribe(
       response=>{
         this.user = response;
+      }
+    )
+  }
+
+  buscarId(id){
+    this.tabla = null
+    this.userService.usuarioId(id).subscribe(
+      response=>{
+
+        this.userInfo = response
+        console.log(this.userInfo)
       }
     )
   }
@@ -158,6 +177,58 @@ export class AdministracionComponent implements OnInit {
     )
   }
 
+  historial(){
+    console.log(this.userInfo)
+    this.prestaService.historial(this.userInfo._id).subscribe(
+      response=>{
+        this.tabla = response
+        console.log(response)
+        this.stateInfo = "historial"
+      },
+      error=>{
+        console.log(<any>error);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No historial',
+          showConfirmButton: false,
+          timer: 1500
+        })
+    this.tabla = null
 
+      }
+    )
+  }
+
+  posesion(){
+    this.prestaService.posesion(this.userInfo._id).subscribe(
+      response=>{
+        this.tabla = response
+        console.log(response)
+        this.stateInfo = "posesion"
+      },
+      error=>{
+        console.log(<any>error);
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ningún poseido',
+          showConfirmButton: false,
+          timer: 1500
+        })
+    this.tabla = null
+      }
+    )
+  }
+
+  ordenUsuarios(orden){
+    console.log(this.IDUserState, orden)
+    this.IDUserState = orden
+    this.userService.mostrarID(orden).subscribe(
+      response=>{
+        this.userTable = response
+      }
+    )
+  }
 
 }

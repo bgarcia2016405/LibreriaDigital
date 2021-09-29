@@ -101,7 +101,7 @@ function devolver(req,res){
 function historial(req,res){
     var usuario = req.params.idUser;
 
-    prestaModel.find({estado:"devuelto"},(err,history)=>{
+    prestaModel.find({user:usuario,estado:"devuelto"},(err,history)=>{
         if(err) return res.status(404).send({report:'Error buscando historial'})
 
         if(history == "") return res.status(404).send({report:'historial no encontrado'})
@@ -113,7 +113,7 @@ function historial(req,res){
 function posesion(req,res){
     var usuario = req.params.idUser;
 
-    prestaModel.find({ estado:"prestado"}, (err,poseido)=>{
+    prestaModel.find({ user:usuario,estado:"prestado"}, (err,poseido)=>{
         if(err) return res.status(404).send({report:'Error buscando historial'})
 
         if(poseido == "") return res.status(404).send({report:'Sin bibliografía en posesión'})

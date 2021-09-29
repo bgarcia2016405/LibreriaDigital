@@ -158,7 +158,7 @@ function listarUsuario(req,res){
 
 
 
-function buscarXId(){
+function buscarXId(req,res){
     var orden = req.params.orden;
     var i
 

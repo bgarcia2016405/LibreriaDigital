@@ -25,6 +25,8 @@ export class AdministracionComponent implements OnInit {
   public tabla
   public stateInfo
   public userInfo: User;
+  public userReport: User;
+  public biblioReport: Bibliografia;
 
   constructor(
     public bibliografiaService:BibliografiaService,
@@ -38,14 +40,16 @@ export class AdministracionComponent implements OnInit {
     this.userChange = new User("","","","","","","","",0);
     this.userTable = new User("","","","","","","","",0);
     this.userInfo = new User("","","","","","","","",0);
+    this.userReport = new User("","","","","","","","",0);
     this.biblio = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
-
+    this.biblioReport = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
   }
 
   ngOnInit(): void {
     this.listarUsuario()
     this.IDUserState = "Mayor"
     this.todos();
+    this.reportUsuario();
   }
 
   agregarEstado(state){
@@ -228,6 +232,16 @@ export class AdministracionComponent implements OnInit {
       response=>{
         this.userTable = response
       }
+    )
+  }
+
+  reportUsuario(){
+    this.userService.reportUsuario().subscribe(
+      response=>{
+        this.userReport = response;
+        console.log(response)
+      }
+
     )
   }
 

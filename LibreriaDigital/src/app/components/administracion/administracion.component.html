@@ -10,14 +10,14 @@
     <li><a (click)="agregarEstado('Editar')">Editar</a></li>
     <li><a (click)="agregarEstado('Eliminar')">Eliminar </a></li>
     <li><a (click)="agregarEstado('Tabla')">Tabla</a></li>
-    <li><a (click)="agregarEstado('Estadisticas')">Estadisticas</a></li>
+    <li><a (click)="agregarEstado('Estadistica')">Estadisticas</a></li>
   </ul>
 </nav>
 
 
 <div ><br>
 
- <div *ngIf="state != null && state != 'Tabla' && state != 'Estadisticas'" class="card">
+ <div *ngIf="state != null && state != 'Tabla' && state != 'Estadistica'" class="card">
   <h2>{{state}}</h2>
 
       <div *ngIf="state != 'Agregar'">
@@ -137,6 +137,39 @@
   </tbody>
 </table>
 </div>
+
+<div *ngIf="state == 'Estadistica'">
+  <table class="table table-striped tt">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 
 <div class="modal fade " id="exampleModalLabel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" >

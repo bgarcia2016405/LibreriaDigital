@@ -24,4 +24,8 @@ api.get('/buscarPlabra/:palabra/:tipo', biblioController.buscarPalabra);
 
 api.get('/buscarPopular/:tipo', biblioController.buscarPopular);
 
+api.get('/reportPrestado/:tipo', authenticated.ensureAuth, biblioController.reportPrestados);
+
+api.get('/reportBuscado/:tipo', authenticated.ensureAuth, biblioController.reportBuscados)
+
 module.exports = api

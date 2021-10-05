@@ -69,7 +69,17 @@ export class BibliografiaService {
     return this.http.get(this.url + '/buscarPlabra/' + palabra + '/' + tipo , {headers:this.headers})
    }
 
+   reportPrestado(tipo):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
 
+    return this.http.get(this.url + '/reportPrestado/' + tipo, {headers:headersToken})
+   }
+
+   reportBuscado(tipo):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+
+    return this.http.get(this.url + '/reportBuscado/' + tipo, {headers:headersToken})
+   }
 
    getIdentidad(){
     var identidad2 = JSON.parse(localStorage.getItem("identidad"))

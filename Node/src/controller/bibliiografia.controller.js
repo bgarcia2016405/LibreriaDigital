@@ -101,9 +101,6 @@ function editarBiblio(req,res){
 
     biblioModel.findOne({titulo:titulo}, (err,bibiFound)=>{
 
-        if(err) return res.status(404).send({report:'Error buscando bibliografia'});
-
-        if(bibiFound) return res.status(404).send({report:'El titulo ya existe'});
 
             biblioModel.findOneAndUpdate({_id:params._id} ,params, {new:true} ,(err,bibiEdit)=>{
             
@@ -229,6 +226,30 @@ function buscarPopular(req,res){
     })
 }
 
+function reportPrestados(req,res){
+    var typo = req.params.tipo;
+
+    biblioModel.find({type:typo},(err,bibiFound)=>{
+        if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+        if(!bibiFound) return res.status(404).send({report:'Bibliografías no existentes'})
+
+        return res.status(404).send(bibiFound);
+    }).sort({disponibles:1}).limit(10)
+}
+
+function reportBuscados(req,res){
+    var typo = req.params.tipo;
+
+    biblioModel.find({type:typo},(err,bibiFound)=>{
+        if(err) return res.status(404).send({report:'Error buscando bibliografía'});
+
+        if(!bibiFound) return res.status(404).send({report:'Bibliografías no existentes'})
+
+        return res.status(404).send(bibiFound);
+    }).sort({buscados:1}).limit(10)
+}
+
 module.exports = {
     crear,
     buscarID,
@@ -238,5 +259,7 @@ module.exports = {
     buscarCopias,
     buscarDisponibles,
     buscarPalabra,
-    buscarPopular
+    buscarPopular,
+    reportPrestados,
+    reportBuscados
 }

@@ -22,4 +22,6 @@ api.get('/listarUsuarios', authenticated.ensureAuth, userController.listarUsuari
 
 api.get('/mostrarId/:orden', authenticated.ensureAuth, userController.buscarXId);
 
+api.get('/reportUsuario', authenticated.ensureAuth, userController.reportUsuario)
+
 module.exports = api;

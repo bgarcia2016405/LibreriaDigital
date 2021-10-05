@@ -27,8 +27,6 @@ function prestamo(req,res){
 
         if(biblioFound.disponibles == 0) return res.status(500).send({report:'No existen copias dispnibles en este momento'})
 
-        
-
         PrestaModel.titulo = biblioFound.titulo;
         
                 prestaModel.find({$and:[{user:PrestaModel.user}, {bibliografia:biblioFound._id}, {estado:presta}]}, (err,libroPrestado)=>{
@@ -43,21 +41,38 @@ function prestamo(req,res){
 
                         if(prestaFound.length == 10) return res.status(200).send({report:'Llego a su limite de prestamos'})
 
-                            PrestaModel.save((err,prestaSaved)=>{
+                        userModel.findById(user,(err,userFound)=>{
+                            
+                        userModel.findByIdAndUpdate(user,{prestados:userFound.prestados + 1}, (err,userActua)=>{
+                            if(err) return res.status(404).send({report:'Error editando usuario'});
 
-                                if(err) return res.status(404).send({report:'Error prestando bibliografía'});
+                            if(!userActua) return res.status(404).send({report:'Usuario actualizando'});
 
-                                if(!prestaSaved) return res.status(500).send({report:'No se presto la bibliografía'});
+                                PrestaModel.save((err,prestaSaved)=>{
 
-                                    biblioModel.findByIdAndUpdate(libro,{disponibles:(biblioFound.disponibles-1),
-                                                                                        prestados:(biblioFound.prestados+1)},
-                                                (err,bibiEdited)=>{  
-                                                    if(err) return res.status(404).send({report:'Error editando bibliografía'});
+                                    if(err) return res.status(404).send({report:'Error prestando bibliografía'});
 
-                                                    if(!bibiEdited) return res.status(500).send({report:'Bibliografía no editada'});
-                                                
-                                                    return res.status(200).send(prestaSaved);
-                                                })
+                                    if(!prestaSaved) return res.status(500).send({report:'No se presto la bibliografía'});
+
+                                        biblioModel.findByIdAndUpdate(libro,{disponibles:(biblioFound.disponibles-1),
+                                                                                            prestados:(biblioFound.prestados+1)},
+                                                    (err,bibiEdited)=>{  
+                                                        if(err) return res.status(404).send({report:'Error editando bibliografía'});
+
+                                                        if(!bibiEdited) return res.status(500).send({report:'Bibliografía no editada'});
+
+                                                            
+                                                                
+                                                                
+
+                                                                    
+
+                                                                    return res.status(200).send(prestaSaved);
+                                                                })
+                                                            })
+                                                    
+                                                        
+                                                    })
                                 
                             })
 

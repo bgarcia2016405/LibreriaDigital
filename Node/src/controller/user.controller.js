@@ -51,6 +51,7 @@ function createUser(req,res){
     UserModel.eMail = params.eMail;
     UserModel.rol = params.rol;
     UserModel.password = params.password;
+    UserModel.prestados = 0;
 
     if(UserModel.nombres == "" || UserModel.IDUser == "" || UserModel.apellidos == "" || UserModel.usuario == "" ||
          UserModel.eMail == "" || UserModel.password == ""){
@@ -174,6 +175,16 @@ function buscarXId(req,res){
         }).sort({IDUser:i})
 }
 
+function reportUsuario(req,res){
+    userModel.find((err,userFound)=>{
+        if(err) return res.status(404).send({report:'Error buscando usuarios'});
+
+        if(!userFound) return res.status(404).send({report:'No buscar usuarios'});
+
+        return res.status(200).send(userFound);
+    }).sort({disponibles:1}).limit(10)
+}
+
 module.exports = {
     Login,
     createUser,
@@ -182,5 +193,6 @@ module.exports = {
     usuarioId,
     usuarioTipo,
     listarUsuario,
-    buscarXId
+    buscarXId,
+    reportUsuario
 }

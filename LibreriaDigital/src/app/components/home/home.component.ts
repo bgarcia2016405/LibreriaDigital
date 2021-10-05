@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     private router:Router
   ) {
     this.identidad = this.userService.getIdentidad();
-    this.user = new User("","","","","","","","");
+    this.user = new User("","","","","","","","",0);
    }
 
   ngOnInit(): void {

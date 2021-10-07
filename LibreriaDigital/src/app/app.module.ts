@@ -9,6 +9,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LibreroComponent } from './components/librero/librero.component';
 import { AdministracionComponent } from './components/administracion/administracion.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChartsModule } from '@rinminase/ng-charts';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

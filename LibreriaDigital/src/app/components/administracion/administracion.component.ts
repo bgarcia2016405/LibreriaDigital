@@ -5,14 +5,29 @@ import { User } from 'src/app/models/user.model';
 import { BibliografiaService } from 'src/app/services/bibliografia.service';
 import { PrestamosService } from 'src/app/services/prestamos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ChartType } from 'chart.js';
 import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-administracion',
   templateUrl: './administracion.component.html',
-  styleUrls: ['./administracion.component.scss']
+  styleUrls: ['./administracion.component.scss'],
+  providers: [BibliografiaService,PrestamosService,UsuarioService]
 })
 export class AdministracionComponent implements OnInit {
+
+  chartOptions = {
+    responsive: true,
+  };
+  chartLabels = [];
+  chartData = [];
+  chartColors = [{
+    backgroundColor: [],
+    borderColor: []
+  }];
+  chartLegend = true;
+  chartPlugins = [];
+
   public libros;
   public identidad;
   public state;
@@ -25,8 +40,9 @@ export class AdministracionComponent implements OnInit {
   public tabla
   public stateInfo
   public userInfo: User;
-  public userReport: User;
-  public biblioReport: Bibliografia;
+  public userReport;
+  public biblioReport;
+  public char;
 
   constructor(
     public bibliografiaService:BibliografiaService,
@@ -45,11 +61,12 @@ export class AdministracionComponent implements OnInit {
     this.biblioReport = new Bibliografia("","","","","",[],[],"",0,0,0,"",0,0);
   }
 
+
+
   ngOnInit(): void {
     this.listarUsuario()
     this.IDUserState = "Mayor"
     this.todos();
-    this.reportUsuario();
   }
 
   agregarEstado(state){
@@ -238,11 +255,75 @@ export class AdministracionComponent implements OnInit {
   reportUsuario(){
     this.userService.reportUsuario().subscribe(
       response=>{
-        this.userReport = response;
-        console.log(response)
+        this.userReport = response.userFound;
+        this.nombredemasiadoLargoParaUnaFuncion()
       }
 
     )
   }
+
+  nombredemasiadoLargoParaUnaFuncion(){
+    this.userReport.forEach(element => {
+      this.chartData.push(element.prestados)
+      this.chartLabels.push(element.nombres)
+      this.chartColors[0].backgroundColor.push(`#${Math.floor(Math.random()*16777215).toString(16)}`)
+    });
+  }
+
+  reportePrestados(tipo){
+    this.bibliografiaService.reportPrestado(tipo).subscribe(
+      reponse=>{
+        this.biblioReport = reponse
+
+        this.biblioReport.forEach(element => {
+          this.chartData.push(element.prestados)
+          this.chartLabels.push(element.titulo)
+          this.chartColors[0].backgroundColor.push(`#${Math.floor(Math.random()*16777215).toString(16)}`)
+        });
+      }
+    )
+
+  }
+
+  reporteBuscados(tipo){
+    this.bibliografiaService.reportBuscado(tipo).subscribe(
+      reponse=>{
+        this.biblioReport = reponse
+
+        this.biblioReport.forEach(element => {
+          this.chartData.push(element.buscados)
+          this.chartLabels.push(element.titulo )
+
+          this.chartColors[0].backgroundColor.push(`#${Math.floor(Math.random()*16777215).toString(16)}`)
+        });
+      }
+    )
+
+  }
+
+  enCambio(){
+    this.chartData = []
+    this.chartLabels = []
+    switch (this.char) {
+      case 'Us':
+        this.reportUsuario()
+        break;
+      case 'LP':
+        this.reportePrestados('Libro')
+        break;
+      case 'RP':
+        this.reportePrestados('Revista')
+        break;
+      case 'LB':
+        this.reporteBuscados('Libro')
+        break;
+      case 'RB':
+        this.reporteBuscados('Revista')
+        break;
+
+    }
+  }
+
+
 
 }

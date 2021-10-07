@@ -176,12 +176,12 @@ function buscarXId(req,res){
 }
 
 function reportUsuario(req,res){
-    userModel.find((err,userFound)=>{
+    userModel.find({rol:estudiante},(err,userFound)=>{
         if(err) return res.status(404).send({report:'Error buscando usuarios'});
 
         if(!userFound) return res.status(404).send({report:'No buscar usuarios'});
 
-        return res.status(200).send(userFound);
+        return res.status(200).send({userFound});
     }).sort({disponibles:1}).limit(10)
 }
 

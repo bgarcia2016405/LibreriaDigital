@@ -234,7 +234,7 @@ function reportPrestados(req,res){
 
         if(!bibiFound) return res.status(404).send({report:'Bibliografías no existentes'})
 
-        return res.status(404).send(bibiFound);
+        return res.status(200).send(bibiFound);
     }).sort({disponibles:1}).limit(10)
 }
 
@@ -246,7 +246,7 @@ function reportBuscados(req,res){
 
         if(!bibiFound) return res.status(404).send({report:'Bibliografías no existentes'})
 
-        return res.status(404).send(bibiFound);
+        return res.status(200).send(bibiFound);
     }).sort({buscados:1}).limit(10)
 }
 

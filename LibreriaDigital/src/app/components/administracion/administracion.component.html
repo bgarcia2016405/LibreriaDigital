@@ -138,36 +138,26 @@
 </table>
 </div>
 
-<div *ngIf="state == 'Estadistica'">
-  <table class="table table-striped tt">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="state == 'Estadistica'" class="chart" >
+
+  <select class="form-select" aria-label="Default select example" name="char"  [(ngModel)]="char"  (change)="enCambio()">
+    <option value="Us">Usuarios que más bibliografías han prestado</option>
+    <option value="LP">Libros más prestados</option>
+    <option value="RP">Revistas más prestadas</option>
+    <option value="LB">Libros más buscados</option>
+    <option value="RB">Revistas más buscadas</option>
+  </select><br>
+
+  <div *ngIf="char != null" style="display: block;"><br><br>
+    <canvas baseChart
+      chartType="bar"
+      [data]="chartData"
+      [colors]="chartColors"
+      [labels]="chartLabels"
+      [options]="chartOptions"
+      [legend]="chartLegend">
+    </canvas>
+  </div>
 </div>
 
 

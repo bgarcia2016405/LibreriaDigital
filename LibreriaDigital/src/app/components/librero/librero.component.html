@@ -63,11 +63,11 @@
 
 
   <div *ngIf="state == 'book'">
-
-    <table class="table table-success table-striped tt">
+ <button *ngIf="identidad.rol == 'admin'" type="button" class="btn btn-outline-success agre"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
+    <table class="table  table-striped tt">
 
     <thead>
-      <button *ngIf="identidad.rol == 'admin'" type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#AgregarModal"><i class="bi bi-plus-lg"></i></button>
+
       <tr>
         <th scope="col">#</th>
         <th scope="col">Titulo</th>
@@ -147,7 +147,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="EditModal">Modal title</h5>
+        <h5 class="modal-title" id="EditModal">Editar</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -210,7 +210,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="AgregarModal">Modal title</h5>
+        <h5 class="modal-title" id="AgregarModal">Agregar</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

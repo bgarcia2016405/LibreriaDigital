@@ -118,7 +118,9 @@ export class AdministracionComponent implements OnInit {
   stage(){
     if(this.state == "Agregar"){
       this.userService.crearUsuario(this.userChange).subscribe(
+
         response=>{
+          console.log('error')
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -129,6 +131,7 @@ export class AdministracionComponent implements OnInit {
           this.agregarEstado('Tabla')
         },error=>{
           console.log(<any>error);
+
           Swal.fire({
           position: 'center',
           icon: 'error',
@@ -182,11 +185,13 @@ export class AdministracionComponent implements OnInit {
           )
             }
           )
+          this.todos();
           this.agregarEstado('Tabla')
         }
       })
 
     }
+    this.todos();
 
   }
 
@@ -261,6 +266,8 @@ export class AdministracionComponent implements OnInit {
 
     )
   }
+
+
 
   nombredemasiadoLargoParaUnaFuncion(){
     this.userReport.forEach(element => {

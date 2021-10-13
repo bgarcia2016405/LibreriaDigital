@@ -41,6 +41,8 @@ function Login(req,res){
 }
 
 function createUser(req,res){
+    return console.log(req.body)
+
     var params = req.body;
     var UserModel = new userModel();
 
@@ -63,7 +65,7 @@ function createUser(req,res){
                         {usuario:UserModel.usuario}]}, (err,userFound)=>{
         if(err) return res.status(404).send({report:'Error buscando usuario'});
 
-        if(userFound) return res.status(404).send({report:'El CUI o Usuario son existentes'});
+        if(userFound) return res.status(404).send(UserModel);
 
         bcrypt.hash(params.password, null, null, (err, passewodEncriptada) => {
             if (err) return console.log("password request error");

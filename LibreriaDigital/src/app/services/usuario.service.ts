@@ -76,6 +76,17 @@ export class UsuarioService {
     return this.http.get(this.url + '/reportUsuario' , {headers: headersToken});
   }
 
+  getIdentidad(){
+    var identidad2 = localStorage.getItem("identidad")
+    if(identidad2 != undefined){
+       this.identidad = identidad2;
+    }else{
+       this.identidad = null;
+    }
+
+    return this.identidad;
+ }
+
   getToken(){
     var token2 = localStorage.token;
     if(token2 != undefined){
@@ -84,17 +95,7 @@ export class UsuarioService {
       this.token = null
     }
     return this.token
-  }
-
-  getIdentidad(){
-    var identidad2 = JSON.parse(localStorage.getItem("identidad"))
-    if(identidad2 != undefined){
-       this.identidad = identidad2;
-    }else{
-       this.identidad = null;
-    }
-    return this.identidad;
- }
+}
 
 
 }

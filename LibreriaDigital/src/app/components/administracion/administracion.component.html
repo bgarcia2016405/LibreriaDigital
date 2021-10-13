@@ -129,7 +129,7 @@
       <td>{{user.eMail}}</td>
       <td>{{user.rol}}</td>
       <td>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalLabel"><i class="bi bi-eye" (click)="buscarId(user._id)"></i></button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModalLabel" (click)="buscarId(user._id)" ><i class="bi bi-eye" (click)="buscarId(user._id)"></i></button>
         <button type="button" class="btn btn-warning" *ngIf="user.rol != 'admin'" (click)="editar(user)"><i class="bi bi-pen" (click)="editar(user)"></i></button>
         <button type="button" class="btn btn-danger"  *ngIf="user.rol != 'admin'"  (click)="eliminar(user)"><i class="bi bi-trash" (click)="eliminar(user)"></i></button>
       </td>

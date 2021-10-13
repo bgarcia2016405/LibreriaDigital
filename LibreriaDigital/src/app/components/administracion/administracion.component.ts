@@ -71,8 +71,15 @@ export class AdministracionComponent implements OnInit {
 
   agregarEstado(state){
     this.state = state
-    this.userChange = null
     this.userID._id = ""
+    this.userChange.IDUser = ""
+    this.userChange.nombres = ""
+    this.userChange.apellidos = ""
+    this.userChange.usuario = ""
+    this.userChange.eMail = ""
+    this.userChange.password = ""
+    this.userChange.rol = ""
+
   }
 
   todos(){
@@ -227,6 +234,7 @@ export class AdministracionComponent implements OnInit {
   }
 
   posesion(){
+    console.log(this.userInfo)
     this.prestaService.posesion(this.userInfo._id).subscribe(
       response=>{
         this.tabla = response

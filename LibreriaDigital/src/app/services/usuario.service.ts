@@ -33,6 +33,13 @@ export class UsuarioService {
     return this.http.post(this.url + '/crearUsuario', params, {headers: headersToken})
   }
 
+  cr(usuario):Observable<any>{
+    let headersToken = this.headers.set('Authorization', this.getToken())
+    let params = JSON.stringify(usuario);
+
+    return this.http.post(this.url + '/crearUsuario', params, {headers: headersToken})
+  }
+
   editarUsuario(usuario,id):Observable<any>{
     let headersToken = this.headers.set('Authorization', this.getToken())
     let params = JSON.stringify(usuario);
@@ -77,7 +84,7 @@ export class UsuarioService {
   }
 
   getIdentidad(){
-    var identidad2 = localStorage.getItem("identidad")
+    var identidad2 = JSON.parse(localStorage.getItem("identidad"))
     if(identidad2 != undefined){
        this.identidad = identidad2;
     }else{

@@ -8,7 +8,7 @@ var api = express.Router();
 
 api.post('/Login', userController.Login);
 
-api.post('/crearUsuario', authenticated.ensureAuth, userController.createUser);
+api.post('/crearUsuario', authenticated.ensureAuth,userController.createUser);
 
 api.delete('/eliminarUsuario/:idUser', authenticated.ensureAuth, userController.eliminarUsuario);
 

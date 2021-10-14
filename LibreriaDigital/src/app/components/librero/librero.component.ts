@@ -173,6 +173,7 @@ export class LibreroComponent implements OnInit {
           'success'
         )
         this.prestar();
+        this.populares();
       }
     })
   }
